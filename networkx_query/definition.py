@@ -14,10 +14,13 @@ __all__ = [
 ]
 
 NETWORKX_OPERATORS_REGISTERY = {}
+"""Internal registry of operators."""
 
 Path = Union[Tuple, str]
+"""Node attribut path definition."""
 
 Evaluator = Callable[[Any], bool]
+"""Predicate function."""
 
 
 def operator_factory(op_function: Callable, *args: Any) -> Evaluator:
@@ -111,7 +114,7 @@ class ItemAST(NamedTuple):
         """
         return self.op.arity.is_compliant(self.args)
 
-    def check_profile(self) -> bool:
+    def check_profile(self) -> bool:  # pragma: no cover
         # TODO Fix: did not work with generic...
         if self.op.profile:
             if not self.op.combinator:

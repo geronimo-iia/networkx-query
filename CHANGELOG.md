@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.2.0 (2020-05-xx) Coming soon
+
+- complete documentation
+- add litlle example
+- add search_edges, search_nodes for quick and eazy usage
+- complete coverage
+
 ## 0.1.0 (2020-05-01)
 
 - initial project structure based on [geronimo-iia/template-python](https://github.com/geronimo-iia/template-python)

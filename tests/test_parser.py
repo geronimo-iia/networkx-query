@@ -50,6 +50,79 @@ def test_compile_expression_eq_path():
     assert func(node_2)
 
 
+def test_compile_expression_neq_path():
+    func = compile_ast(parse({'neq': [('_link', 'other', 'weight'), 2]}))
+    assert not func(node_2)
+    func = compile_ast(parse({'neq': [('_link', 'other', 'weight'), 8]}))
+    assert func(node_2)
+
+
+def test_compile_expression_gt_path():
+    func = compile_ast(parse({'gt': [('_link', 'other', 'weight'), 1]}))
+    assert func(node_2)
+    func = compile_ast(parse({'gt': [('_link', 'other', 'weight'), 2]}))
+    assert not func(node_2)
+
+
+def test_compile_expression_gte_path():
+    func = compile_ast(parse({'gte': [('_link', 'other', 'weight'), 2]}))
+    assert func(node_2)
+    func = compile_ast(parse({'gte': [('_link', 'other', 'weight'), 1]}))
+    assert func(node_2)
+
+
+def test_compile_expression_lte_path():
+    func = compile_ast(parse({'lte': [('_link', 'other', 'weight'), 2]}))
+    assert func(node_2)
+    func = compile_ast(parse({'lte': [('_link', 'other', 'weight'), 3]}))
+    assert func(node_2)
+
+
+def test_compile_expression_lt_path():
+    func = compile_ast(parse({'lt': [('_link', 'other', 'weight'), 3]}))
+    assert func(node_2)
+    func = compile_ast(parse({'lt': [('_link', 'other', 'weight'), 2]}))
+    assert not func(node_2)
+
+
+def test_compile_expression_in_path():
+    func = compile_ast(parse({'in': [('_link', 'other', 'weight'), [1, 2, 3]]}))
+    assert func(node_2)
+
+
+def test_compile_expression_and():
+    func = compile_ast(parse({'and': [{'has': 'application'}, {'in': [('weight',), [1, 2, 3]]}]}))
+    assert not func(node_0)
+    assert func(node_1)
+    assert not func(node_2)
+
+
+def test_compile_expression_or():
+    func = compile_ast(parse({'or': [{'has': 'application'}, {'in': [('weight',), [1, 2, 3]]}]}))
+    assert func(node_0)
+    assert func(node_1)
+    assert not func(node_2)
+
+
+def test_compile_expression_xor():
+    func = compile_ast(parse({'xor': [{'has': 'application'}, {'in': [('weight',), [1, 2, 3]]}]}))
+    assert func(node_0)
+    assert not func(node_1)
+    assert not func(node_2)
+
+
+def test_compile_expression_nxor():
+    func = compile_ast(parse({'nxor': [{'has': 'application'}, {'in': [('weight',), [1, 2, 3]]}]}))
+    assert not func(node_0)
+    assert func(node_1)
+    assert func(node_2)
+
+
 def test_parse_exception():
     with pytest.raises(ParserException):
         parse({'has': ['_link', 'other', 'weight']})
+
+
+def test_parse_raise_unknown_operator():
+    with pytest.raises(ParserException):
+        parse({'idontexistatall': ['_link', 'other', 'weight']})

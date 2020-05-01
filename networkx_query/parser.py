@@ -62,7 +62,7 @@ def explain(ast: ItemAST) -> Dict:
 
 def compile_ast(ast: ItemAST) -> Evaluator:
     """Compile AST in an Evaluator function."""
-    if ast.op.arity == OperatoryArity.UNARY:
+    if ast.op.arity == OperatoryArity.UNARY:  # pragma: no cover
         return operator_factory(ast.op.function)
     if ast.op.combinator:
         return operator_factory(ast.op.function, *list(map(compile_ast, ast.args)))

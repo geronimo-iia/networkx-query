@@ -2,9 +2,9 @@
 from pkg_resources import DistributionNotFound, get_distribution
 
 from .definition import Evaluator, ParserException
-from .query import explain_query, prepare_query
+from .query import search_nodes, search_edges, prepare_query
 
-__all__ = ['prepare_query', 'explain_query', 'ParserException', 'Evaluator']
+__all__ = ['search_nodes', 'search_edges', 'prepare_query', 'ParserException', 'Evaluator']
 
 try:
     __version__ = get_distribution('networkx_query').version

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>networkx_query.definition &mdash; networkx_query 0.1.0 documentation</title>
+  <title>networkx_query.definition &mdash; networkx_query 0.2.0 documentation</title>
   
 
   
@@ -163,10 +163,13 @@
 <span class="p">]</span>
 
 <span class="n">NETWORKX_OPERATORS_REGISTERY</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="sd">&quot;&quot;&quot;Internal registry of operators.&quot;&quot;&quot;</span>
 
 <span class="n">Path</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Node attribut path definition.&quot;&quot;&quot;</span>
 
 <span class="n">Evaluator</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span>
+<span class="sd">&quot;&quot;&quot;Predicate function.&quot;&quot;&quot;</span>
 
 
 <span class="k">def</span> <span class="nf">operator_factory</span><span class="p">(</span><span class="n">op_function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Evaluator</span><span class="p">:</span>
@@ -260,7 +263,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">arity</span><span class="o">.</span><span class="n">is_compliant</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">check_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">check_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
         <span class="c1"># TODO Fix: did not work with generic...</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">profile</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">combinator</span><span class="p">:</span>

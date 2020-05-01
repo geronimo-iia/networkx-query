@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; networkx_query 0.1.0 documentation</title>
+  <title>API Reference &mdash; networkx_query 0.2.0 documentation</title>
   
 
   
@@ -175,11 +175,14 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.prepare_query" title="networkx_query.prepare_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_query</span></code></a>(expra)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.search_nodes" title="networkx_query.search_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_nodes</span></code></a>(graph, query)</p></td>
+<td><p>Search nodes in specified grapg which match query.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.explain_query" title="networkx_query.explain_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">explain_query</span></code></a>(expra)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.search_edges" title="networkx_query.search_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_edges</span></code></a>(graph, query)</p></td>
+<td><p>Search edges in specified grapg which match query.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.prepare_query" title="networkx_query.prepare_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_query</span></code></a>(query)</p></td>
+<td><p>Transform expression query as a function.</p></td>
 </tr>
 </tbody>
 </table>
@@ -203,14 +206,73 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="networkx_query.explain_query">
-<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">explain_query</code><span class="sig-paren">(</span><em class="sig-param">expra: Dict</em><span class="sig-paren">)</span> &#x2192; Dict<a class="reference internal" href="_modules/networkx_query/query.html#explain_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.explain_query" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="networkx_query.search_nodes">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">search_nodes</code><span class="sig-paren">(</span><em class="sig-param">graph: networkx.classes.graph.Graph</em>, <em class="sig-param">query: Dict</em><span class="sig-paren">)</span> &#x2192; Iterable[Any]<a class="reference internal" href="_modules/networkx_query/query.html#search_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.search_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search nodes in specified grapg which match query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>Graph</em>) – networkx graph instance</p></li>
+<li><p><strong>query</strong> (<em>Dict</em>) – query expression</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>results as an iterable of node identifier.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(Iterable[Any])</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Exceptions:</dt><dd><p>(ParserException): if a parse error occurs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="networkx_query.search_edges">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">search_edges</code><span class="sig-paren">(</span><em class="sig-param">graph: networkx.classes.graph.Graph</em>, <em class="sig-param">query: Dict</em><span class="sig-paren">)</span> &#x2192; Iterable[Tuple]<a class="reference internal" href="_modules/networkx_query/query.html#search_edges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.search_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search edges in specified grapg which match query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>Graph</em>) – networkx graph instance</p></li>
+<li><p><strong>query</strong> (<em>Dict</em>) – query expression</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>results as an iterable of edge identifier (tuple).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(Iterable[Tuple])</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Exceptions:</dt><dd><p>(ParserException): if a parse error occurs</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="networkx_query.prepare_query">
-<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">prepare_query</code><span class="sig-paren">(</span><em class="sig-param">expra: Dict</em><span class="sig-paren">)</span> &#x2192; Callable[[Any], bool]<a class="reference internal" href="_modules/networkx_query/query.html#prepare_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.prepare_query" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">prepare_query</code><span class="sig-paren">(</span><em class="sig-param">query: Dict</em><span class="sig-paren">)</span> &#x2192; Callable[[Any], bool]<a class="reference internal" href="_modules/networkx_query/query.html#prepare_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.prepare_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform expression query as a function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>Dict</em>) – expression query as dictionary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluator function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(Evaluator)</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Exceptions:</dt><dd><p>(ParserException): if a parse error occurs</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 </div>
