@@ -1,4 +1,4 @@
-"""networkx-query definition."""
+"""networkx-query public interace definition."""
 from typing import Dict
 
 from .definition import Evaluator, ParserException

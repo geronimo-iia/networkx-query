@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "networkx_query"
-version = "0.0.0"
+version = "0.1.0"
 description = "NetworkX Query Tool"
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]
@@ -8,7 +8,7 @@ readme = "README.md"
 homepage = "https://pypi.org/project/networkx_query"
 documentation = "https://geronimo-iia.github.io/networkx-query/"
 repository = "https://github.com/geronimo-iia/networkx-query"
-keywords = []
+keywords = ["networkx", "graph", "query"]
 classifiers = [
     # update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
     "Development Status :: 5 - Production/Stable",

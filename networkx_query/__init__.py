@@ -1,4 +1,4 @@
-"""networkx-query definition."""
+"""networkx-query."""
 from pkg_resources import DistributionNotFound, get_distribution
 
 from .definition import Evaluator, ParserException
