@@ -1,9 +1,10 @@
 """networkx-query definition."""
-from pkg_resources import get_distribution, DistributionNotFound
-from .definition import Evaluator, ItemAST, ParserException
-from .parser import compile_ast, explain, parse
+from pkg_resources import DistributionNotFound, get_distribution
 
-__all__ = ['parse', 'explain', 'compile_ast', 'ItemAST', 'ParserException']
+from .definition import Evaluator, ParserException
+from .query import explain_query, prepare_query
+
+__all__ = ['prepare_query', 'explain_query', 'ParserException', 'Evaluator']
 
 try:
     __version__ = get_distribution('networkx_query').version

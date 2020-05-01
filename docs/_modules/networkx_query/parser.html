@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>networkx_query.parser &mdash; networkx_query 0.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> networkx_query
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">networkx_query</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>networkx_query.parser</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for networkx_query.parser</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Main parser and compile function.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">.definition</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">NETWORKX_OPERATORS_REGISTERY</span><span class="p">,</span>
+    <span class="n">Evaluator</span><span class="p">,</span>
+    <span class="n">ItemAST</span><span class="p">,</span>
+    <span class="n">OperatoryArity</span><span class="p">,</span>
+    <span class="n">ParserException</span><span class="p">,</span>
+    <span class="n">operator_factory</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.operator</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F401,F403</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;parse&quot;</span><span class="p">,</span> <span class="s2">&quot;explain&quot;</span><span class="p">,</span> <span class="s2">&quot;compile_ast&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_check_item_ast</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">ItemAST</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">deque</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ItemAST</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">compliant</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">check_arity</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">compliant</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParserException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid parameters for &quot;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; operator (</span><span class="si">{</span><span class="n">delta</span><span class="si">}</span><span class="s1"> #parameters)&#39;</span><span class="p">,</span> <span class="n">stack</span><span class="p">)</span>
+    <span class="c1"># if not item.check_profile():</span>
+    <span class="c1">#    raise ParserException(f&#39;Invalid type parameters for &quot;{item.op.name}&quot; operator&#39;, stack)</span>
+    <span class="k">return</span> <span class="n">item</span>
+
+
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../api.html#networkx_query.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">expra</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">deque</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ItemAST</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Tranform json query into Item AST.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_stack</span> <span class="o">=</span> <span class="n">stack</span> <span class="k">if</span> <span class="n">stack</span> <span class="k">else</span> <span class="n">deque</span><span class="p">()</span>
+
+    <span class="n">_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expra</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">expra</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">op</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">NETWORKX_OPERATORS_REGISTERY</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ParserException</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unsupported &quot;</span><span class="si">{</span><span class="n">op</span><span class="si">}</span><span class="s1">&quot; operator&#39;</span><span class="p">,</span> <span class="n">_stack</span><span class="p">)</span>
+        <span class="n">operator</span> <span class="o">=</span> <span class="n">NETWORKX_OPERATORS_REGISTERY</span><span class="p">[</span><span class="n">op</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">combinator</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># shortcut List declaration as single item</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="n">v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">_stack</span><span class="p">))</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_check_item_ast</span><span class="p">(</span><span class="n">ItemAST</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">operator</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">),</span> <span class="n">_stack</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_check_item_ast</span><span class="p">(</span><span class="n">ItemAST</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">operator</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">List</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span><span class="p">),</span> <span class="n">_stack</span><span class="p">))</span>
+
+    <span class="n">_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">ItemAST</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">NETWORKX_OPERATORS_REGISTERY</span><span class="p">[</span><span class="s1">&#39;and&#39;</span><span class="p">],</span> <span class="n">args</span><span class="o">=</span><span class="n">result</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="explain"><a class="viewcode-back" href="../../api.html#networkx_query.explain">[docs]</a><span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="n">ast</span><span class="p">:</span> <span class="n">ItemAST</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert ast as dict.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">combinator</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">explain</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">args</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">args</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="compile_ast"><a class="viewcode-back" href="../../api.html#networkx_query.compile_ast">[docs]</a><span class="k">def</span> <span class="nf">compile_ast</span><span class="p">(</span><span class="n">ast</span><span class="p">:</span> <span class="n">ItemAST</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Evaluator</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compile AST in an Evaluator function.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">arity</span> <span class="o">==</span> <span class="n">OperatoryArity</span><span class="o">.</span><span class="n">UNARY</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">operator_factory</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">function</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">combinator</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">operator_factory</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">compile_ast</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">args</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">operator_factory</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">ast</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

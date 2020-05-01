@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; networkx_query 0.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Change Log" href="changelog.html" />
+    <link rel="prev" title="networkx-query" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> networkx_query
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-networkx_query">networkx-query</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">networkx_query</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#api-reference" id="id2">API Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#module-networkx_query" id="id3">networkx-query</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="module-networkx_query">
+<span id="networkx-query"></span><h2><a class="toc-backref" href="#id3">networkx-query</a><a class="headerlink" href="#module-networkx_query" title="Permalink to this headline">¶</a></h2>
+<p>networkx-query definition.</p>
+<p><strong>Functions</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.parse" title="networkx_query.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a>(expra, stack)</p></td>
+<td><p>Tranform json query into Item AST.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.explain" title="networkx_query.explain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">explain</span></code></a>(ast)</p></td>
+<td><p>Convert ast as dict.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.compile_ast" title="networkx_query.compile_ast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile_ast</span></code></a>(ast)</p></td>
+<td><p>Compile AST in an Evaluator function.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classes</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ItemAST" title="networkx_query.ItemAST"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ItemAST</span></code></a></p></td>
+<td><p>Define our AST.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exceptions</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ParserException" title="networkx_query.ParserException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParserException</span></code></a>(message, stack)</p></td>
+<td><p>Define a parser exception with stack of expression.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="networkx_query.ItemAST">
+<em class="property">class </em><code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">ItemAST</code><a class="reference internal" href="_modules/networkx_query/definition.html#ItemAST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ItemAST" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Define our AST.</p>
+<p>Create new instance of ItemAST(op, args)</p>
+<p><strong>Attributes</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ItemAST.args" title="networkx_query.ItemAST.args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">args</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.ItemAST.op" title="networkx_query.ItemAST.op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">op</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ItemAST.check_arity" title="networkx_query.ItemAST.check_arity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_arity</span></code></a>()</p></td>
+<td><p>Check arity of this item against operator definition.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.ItemAST.check_profile" title="networkx_query.ItemAST.check_profile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_profile</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="networkx_query.ItemAST.op">
+<em class="property">property </em><code class="sig-name descname">op</code><a class="headerlink" href="#networkx_query.ItemAST.op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="networkx_query.ItemAST.args">
+<em class="property">property </em><code class="sig-name descname">args</code><a class="headerlink" href="#networkx_query.ItemAST.args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="networkx_query.ItemAST.check_arity">
+<code class="sig-name descname">check_arity</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple[bool, int]<a class="reference internal" href="_modules/networkx_query/definition.html#ItemAST.check_arity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ItemAST.check_arity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check arity of this item against operator definition.</p>
+<p>Utilities short cut to OperatorDefinition#OperatoryArity#is_compliant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>(match, delta_parameters_count)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(Tuple[bool, int])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="networkx_query.ItemAST.check_profile">
+<code class="sig-name descname">check_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/networkx_query/definition.html#ItemAST.check_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ItemAST.check_profile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="networkx_query.ParserException">
+<em class="property">exception </em><code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">ParserException</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">stack</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/networkx_query/definition.html#ParserException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ParserException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Define a parser exception with stack of expression.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="networkx_query.compile_ast">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">compile_ast</code><span class="sig-paren">(</span><em class="sig-param">ast: networkx_query.definition.ItemAST</em><span class="sig-paren">)</span> &#x2192; Callable[[Any], bool]<a class="reference internal" href="_modules/networkx_query/parser.html#compile_ast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.compile_ast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile AST in an Evaluator function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="networkx_query.explain">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">explain</code><span class="sig-paren">(</span><em class="sig-param">ast: networkx_query.definition.ItemAST</em><span class="sig-paren">)</span> &#x2192; Dict<a class="reference internal" href="_modules/networkx_query/parser.html#explain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.explain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert ast as dict.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="networkx_query.parse">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">expra: Dict</em>, <em class="sig-param">stack: Optional[collections.deque] = None</em><span class="sig-paren">)</span> &#x2192; networkx_query.definition.ItemAST<a class="reference internal" href="_modules/networkx_query/parser.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tranform json query into Item AST.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Change Log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="networkx-query" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
