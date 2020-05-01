@@ -1,4 +1,5 @@
 import pytest
+
 from networkx_query import ParserException
 from networkx_query.parser import compile_ast, explain, parse
 
