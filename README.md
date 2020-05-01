@@ -10,7 +10,7 @@ Versions following [Semantic Versioning](https://semver.org/)
 
 ## Overview
 
-NetworkX Query Tool
+NetworkX Query Tool (preview)
 
 ## Installation
 

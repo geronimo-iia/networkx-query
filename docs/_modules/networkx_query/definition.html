@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>networkx_query.definition &mdash; networkx_query 0.0.0 documentation</title>
+  <title>networkx_query.definition &mdash; networkx_query 0.1.0 documentation</title>
   
 
   
@@ -243,13 +243,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
 
-<div class="viewcode-block" id="ItemAST"><a class="viewcode-back" href="../../api.html#networkx_query.ItemAST">[docs]</a><span class="k">class</span> <span class="nc">ItemAST</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ItemAST</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Define our AST.&quot;&quot;&quot;</span>
 
     <span class="n">op</span><span class="p">:</span> <span class="n">OperatorDefinition</span>
     <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
 
-<div class="viewcode-block" id="ItemAST.check_arity"><a class="viewcode-back" href="../../api.html#networkx_query.ItemAST.check_arity">[docs]</a>    <span class="k">def</span> <span class="nf">check_arity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">check_arity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Check arity of this item against operator definition.</span>
 
 <span class="sd">        Utilities short cut to OperatorDefinition#OperatoryArity#is_compliant.</span>
@@ -258,9 +258,9 @@
 <span class="sd">            (Tuple[bool, int]): (match, delta_parameters_count)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">arity</span><span class="o">.</span><span class="n">is_compliant</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">arity</span><span class="o">.</span><span class="n">is_compliant</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ItemAST.check_profile"><a class="viewcode-back" href="../../api.html#networkx_query.ItemAST.check_profile">[docs]</a>    <span class="k">def</span> <span class="nf">check_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">check_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="c1"># TODO Fix: did not work with generic...</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">profile</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">combinator</span><span class="p">:</span>
@@ -272,7 +272,7 @@
                 <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                         <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="kc">True</span></div></div>
+        <span class="k">return</span> <span class="kc">True</span>
 
 
 <div class="viewcode-block" id="ParserException"><a class="viewcode-back" href="../../api.html#networkx_query.ParserException">[docs]</a><span class="k">class</span> <span class="nc">ParserException</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>

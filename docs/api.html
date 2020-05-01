@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; networkx_query 0.0.0 documentation</title>
+  <title>API Reference &mdash; networkx_query 0.1.0 documentation</title>
   
 
   
@@ -167,7 +167,7 @@
 </div>
 <div class="section" id="module-networkx_query">
 <span id="networkx-query"></span><h2><a class="toc-backref" href="#id3">networkx-query</a><a class="headerlink" href="#module-networkx_query" title="Permalink to this headline">¶</a></h2>
-<p>networkx-query definition.</p>
+<p>networkx-query.</p>
 <p><strong>Functions</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -175,26 +175,11 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.parse" title="networkx_query.parse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse</span></code></a>(expra, stack)</p></td>
-<td><p>Tranform json query into Item AST.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.prepare_query" title="networkx_query.prepare_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_query</span></code></a>(expra)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.explain" title="networkx_query.explain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">explain</span></code></a>(ast)</p></td>
-<td><p>Convert ast as dict.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.compile_ast" title="networkx_query.compile_ast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile_ast</span></code></a>(ast)</p></td>
-<td><p>Compile AST in an Evaluator function.</p></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Classes</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ItemAST" title="networkx_query.ItemAST"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ItemAST</span></code></a></p></td>
-<td><p>Define our AST.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.explain_query" title="networkx_query.explain_query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">explain_query</span></code></a>(expra)</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -210,76 +195,6 @@
 </tr>
 </tbody>
 </table>
-<dl class="class">
-<dt id="networkx_query.ItemAST">
-<em class="property">class </em><code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">ItemAST</code><a class="reference internal" href="_modules/networkx_query/definition.html#ItemAST"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ItemAST" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
-<p>Define our AST.</p>
-<p>Create new instance of ItemAST(op, args)</p>
-<p><strong>Attributes</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ItemAST.args" title="networkx_query.ItemAST.args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">args</span></code></a></p></td>
-<td><p>Alias for field number 1</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.ItemAST.op" title="networkx_query.ItemAST.op"><code class="xref py py-obj docutils literal notranslate"><span class="pre">op</span></code></a></p></td>
-<td><p>Alias for field number 0</p></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Methods</strong></p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#networkx_query.ItemAST.check_arity" title="networkx_query.ItemAST.check_arity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_arity</span></code></a>()</p></td>
-<td><p>Check arity of this item against operator definition.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#networkx_query.ItemAST.check_profile" title="networkx_query.ItemAST.check_profile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_profile</span></code></a>()</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="networkx_query.ItemAST.op">
-<em class="property">property </em><code class="sig-name descname">op</code><a class="headerlink" href="#networkx_query.ItemAST.op" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="networkx_query.ItemAST.args">
-<em class="property">property </em><code class="sig-name descname">args</code><a class="headerlink" href="#networkx_query.ItemAST.args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="networkx_query.ItemAST.check_arity">
-<code class="sig-name descname">check_arity</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple[bool, int]<a class="reference internal" href="_modules/networkx_query/definition.html#ItemAST.check_arity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ItemAST.check_arity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check arity of this item against operator definition.</p>
-<p>Utilities short cut to OperatorDefinition#OperatoryArity#is_compliant.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>(match, delta_parameters_count)</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(Tuple[bool, int])</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="networkx_query.ItemAST.check_profile">
-<code class="sig-name descname">check_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/networkx_query/definition.html#ItemAST.check_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ItemAST.check_profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="exception">
 <dt id="networkx_query.ParserException">
 <em class="property">exception </em><code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">ParserException</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">stack</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/networkx_query/definition.html#ParserException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.ParserException" title="Permalink to this definition">¶</a></dt>
@@ -288,22 +203,14 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="networkx_query.compile_ast">
-<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">compile_ast</code><span class="sig-paren">(</span><em class="sig-param">ast: networkx_query.definition.ItemAST</em><span class="sig-paren">)</span> &#x2192; Callable[[Any], bool]<a class="reference internal" href="_modules/networkx_query/parser.html#compile_ast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.compile_ast" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compile AST in an Evaluator function.</p>
-</dd></dl>
+<dt id="networkx_query.explain_query">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">explain_query</code><span class="sig-paren">(</span><em class="sig-param">expra: Dict</em><span class="sig-paren">)</span> &#x2192; Dict<a class="reference internal" href="_modules/networkx_query/query.html#explain_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.explain_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
-<dt id="networkx_query.explain">
-<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">explain</code><span class="sig-paren">(</span><em class="sig-param">ast: networkx_query.definition.ItemAST</em><span class="sig-paren">)</span> &#x2192; Dict<a class="reference internal" href="_modules/networkx_query/parser.html#explain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.explain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert ast as dict.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="networkx_query.parse">
-<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">expra: Dict</em>, <em class="sig-param">stack: Optional[collections.deque] = None</em><span class="sig-paren">)</span> &#x2192; networkx_query.definition.ItemAST<a class="reference internal" href="_modules/networkx_query/parser.html#parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.parse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tranform json query into Item AST.</p>
-</dd></dl>
+<dt id="networkx_query.prepare_query">
+<code class="sig-prename descclassname">networkx_query.</code><code class="sig-name descname">prepare_query</code><span class="sig-paren">(</span><em class="sig-param">expra: Dict</em><span class="sig-paren">)</span> &#x2192; Callable[[Any], bool]<a class="reference internal" href="_modules/networkx_query/query.html#prepare_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networkx_query.prepare_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>
