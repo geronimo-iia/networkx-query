@@ -2,6 +2,6 @@
 
 
 def test_version_is_defined():
-    from  networkx_query import __version__
+    from networkx_query import __version__
 
     assert __version__

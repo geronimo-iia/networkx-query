@@ -9,7 +9,7 @@ __all__ = [
     "OperatoryArity",
     "OperatorDefinition",
     "ItemAST",
-    "OPERATORS_REGISTERY",
+    "NETWORKX_OPERATORS_REGISTERY",
     "register_operator",
 ]
 

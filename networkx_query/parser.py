@@ -2,7 +2,14 @@
 from collections import deque
 from typing import Dict, List, Optional
 
-from .definition import NETWORKX_OPERATORS_REGISTERY, Evaluator, ItemAST, OperatoryArity, ParserException, operator_factory
+from .definition import (
+    NETWORKX_OPERATORS_REGISTERY,
+    Evaluator,
+    ItemAST,
+    OperatoryArity,
+    ParserException,
+    operator_factory,
+)
 from .operator import *  # noqa: F401,F403
 
 __all__ = ["parse", "explain", "compile_ast"]
