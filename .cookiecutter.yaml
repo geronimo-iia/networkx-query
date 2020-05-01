@@ -1,0 +1,17 @@
+default_context:
+  email: jguibert@gmail.com
+  full_name: Jerome Guibert
+  github_repo: networkx-query
+  github_username: geronimo-iia
+  max_code_line_length: 120
+  package_name: networkx_query
+  project_name: networkx-query
+  project_short_description: NetworkX Query Tool
+  project_slug: networkx-query
+  python_major_version: 3
+  python_minor_version: 7
+  use_coverall: 1
+  use_scrutinizer: 1
+  year: 2020
+_extensions:
+  - "jinja2_time.TimeExtension"
