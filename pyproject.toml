@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "networkx_query"
-version = "0.2.0"
+version = "1.0.0"
 description = "NetworkX Query Tool"
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]

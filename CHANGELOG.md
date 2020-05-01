@@ -1,6 +1,6 @@
 # Change Log
 
-## 0.2.0 (2020-05-xx) Coming soon
+## 1.0.0 (2020-05-02)
 
 - complete documentation
 - add litlle example
