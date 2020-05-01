@@ -1,5 +1,6 @@
 import pytest
-from networkx_query import ParserException, compile_ast, explain, parse
+from networkx_query import ParserException
+from networkx_query.parser import compile_ast, explain, parse
 
 node_0 = {'application': 'test'}
 node_1 = {'application': 'test', 'weight': 3, 'group': 'my-group'}
