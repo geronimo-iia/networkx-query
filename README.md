@@ -62,22 +62,17 @@ You could do the same with edges using ```search_edges```.
 
 [search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges) and [search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
 
-Evaluator are function with this signature: (context) -> bool
-
-Context is a dictionnary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
-
+Quickly, ```Evaluator``` are function with this signature: (context) -> bool
+And ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
+With networkX, node and edge attributes are dictionary like.
 
 ## Query language
 
-Define a json query language like [json-query-language](https://github.com/clue/json-query-language/blob/master/SYNTAX.md) 
+We sefine a json query language like [json-query-language](https://github.com/clue/json-query-language/blob/master/SYNTAX.md) 
 against nodes or edges attributes.
-
-A Path is a single string or a tuple of string which represente a path in a tree (here a dictionnary).
 
 
 ### Expressions
-
-All those expression are evaluate against a context wich is a dictionnary like (as can be a NodeDataView or an EdgeDataView).
 
 Main expression syntax turn around this:
 
@@ -104,32 +99,35 @@ Test if a node/edge has an attribute product : { "definition": { "name": xxx }} 
 }
 ```
 
+The tuple ```("product", "definition", "name")``` is a path in attribut dictionnary.
+A Path is a single string or a tuple of string which represente a path in a tree (here a dictionary).
+
 We support this operators:
 
-| Name     | Alias | Parameters      | Description                                                                                   |
-| -------- | :---: | --------------- | --------------------------------------------------------------------------------------------- |
-| has      |       | Path            | Check if path exists in context.                                                              |
-| contains |       | Path, str       | Check if an attribut (specifed with path) exists and contains specified value.                |
-| eq       | `==`  | Path, Any       | Check if an attribut (specifed with path) exists and equals specified value.                  |
-| neq      | `!=`  | Path, Any       | Check if an attribut (specifed with path) did not exists or not equals specified value.       |
-| gt       |  `<`  | Path, Any       | Check if an attribut (specifed with path) exists and greather that specified value.           |
-| lt       |  `<`  | Path, Any       | Check if an attribut (specifed with path) exists and lower that specified value.              |
-| gte      | `>=`  | Path, Any       | Check if an attribut (specifed with path) exists and greather or equals that specified value. |
-| lte      | `<=`  | Path, Any       | Check if an attribut (specifed with path) exists and lower or equals that specified value.    |
-| in       | `:=`  | Path, List[Any] | Check if an attribut (specifed with path) exists and attribut value in specified values.      |
+| Name     | Alias | Parameters      | Description                                                                   |
+| -------- | :---: | --------------- | ----------------------------------------------------------------------------- |
+| has      |       | Path            | Check if path exists in context.                                              |
+| contains |       | Path, str       | Check if an attribut path exists and contains specified value.                |
+| eq       | `==`  | Path, Any       | Check if an attribut path exists and equals specified value.                  |
+| neq      | `!=`  | Path, Any       | Check if an attribut path did not exists or not equals specified value.       |
+| gt       |  `<`  | Path, Any       | Check if an attribut path exists and greather that specified value.           |
+| lt       |  `<`  | Path, Any       | Check if an attribut path exists and lower that specified value.              |
+| gte      | `>=`  | Path, Any       | Check if an attribut path exists and greather or equals that specified value. |
+| lte      | `<=`  | Path, Any       | Check if an attribut path exists and lower or equals that specified value.    |
+| in       | `:=`  | Path, List[Any] | Check if an attribut path exists and attribut value in specified values.      |
 
 
 ### Boolean composition of matching expression
 
 We support this operators:
 
-| Name | Alias | Parameters    | Description           |
-| ---- | :---: | ------------- | --------------------- |
-| and  | `&&`  | list of query | Define And operator.  |
-| or   | \|\|  | list of query | Define Or operator.   |
-| xor  |       | list of query | Define xor operator.  |
-| nxor |       | list of query | Define nxor operator. |
-| not  |  `!`  | query         | Define Not operator.  |
+| Name | Alias | Parameters    | Description    |
+| ---- | :---: | ------------- | -------------- |
+| and  | `&&`  | list of query | And operator.  |
+| or   | \|\|  | list of query | Or operator.   |
+| xor  |       | list of query | xor operator.  |
+| nxor |       | list of query | nxor operator. |
+| not  |  `!`  | query         | Not operator.  |
 
 
 By default, a list of expressions is equivalent of an "AND" of this expressions.
