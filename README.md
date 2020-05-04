@@ -116,16 +116,17 @@ search_direct_relationships(
 
 ## API
 
-[search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges)
-[search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) 
-[search_direct_relationships](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships) 
+Actually, we have:
+
+- [search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges)
+- [search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) 
+- [search_direct_relationships](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships) 
 
 
 All this function are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
 
-Quickly, ```Evaluator``` are function with this signature: (context) -> bool
-And ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
-With networkX, node and edge attributes are dictionary like.
+Quickly, ```Evaluator``` are function with this signature: (context) -> bool, and ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
+With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.
 
 
 
@@ -230,7 +231,8 @@ is equivalent to:
 
 ## Wished Features
 
-- add match node, edges, path specification
-- add set expression on node/edges with constraints
+- add projection expression (a return like statement)
+- add join relation ship 
 - add path condition between node
+
 

@@ -259,13 +259,15 @@
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges">search_edges</a>
-<a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes">search_nodes</a>
-<a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships">search_direct_relationships</a></p>
+<p>Actually, we have:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges">search_edges</a></p></li>
+<li><p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes">search_nodes</a></p></li>
+<li><p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships">search_direct_relationships</a></p></li>
+</ul>
 <p>All this function are based on <a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query">prepare_query</a> which return an Evaluator.</p>
-<p>Quickly, <code class="docutils literal notranslate"><span class="pre">Evaluator</span></code> are function with this signature: (context) -&gt; bool
-And <code class="docutils literal notranslate"><span class="pre">Context</span></code> is a dictionary like structure (with in and [] methods, and support <strong>contains</strong> or  (<strong>iter</strong> and <strong>getitem</strong>))
-With networkX, node and edge attributes are dictionary like.</p>
+<p>Quickly, <code class="docutils literal notranslate"><span class="pre">Evaluator</span></code> are function with this signature: (context) -&gt; bool, and <code class="docutils literal notranslate"><span class="pre">Context</span></code> is a dictionary like structure (with in and [] methods, and support <strong>contains</strong> or  (<strong>iter</strong> and <strong>getitem</strong>))
+With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.</p>
 </div>
 <div class="section" id="query-language">
 <h2>Query language<a class="headerlink" href="#query-language" title="Permalink to this headline">¶</a></h2>
@@ -441,8 +443,8 @@ A Path is a single string or a tuple of string which represente a path in a tree
 <div class="section" id="wished-features">
 <h2>Wished Features<a class="headerlink" href="#wished-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>add match node, edges, path specification</p></li>
-<li><p>add set expression on node/edges with constraints</p></li>
+<li><p>add projection expression (a return like statement)</p></li>
+<li><p>add join relation ship</p></li>
 <li><p>add path condition between node</p></li>
 </ul>
 </div>
