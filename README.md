@@ -62,14 +62,66 @@ for edge_id in search_edges(g, {"eq": [("action",), "produce"]}):
 
 ### Searching relation ship
 
+With ```search_direct_relationships``` you can made a query which filter edges on their :
+ - source node attributes
+ - edge attributes
+ - target node attributes
+
+With this graph:
 
 ```python
+import networkx as nx
+from networkx_query import search_direct_relationships
+
+g = nx.DiGraph()
+for i in range(30):
+    g.add_node(i, data=i)
+
+for i in range(10, 30):
+    g.add_edge(i - 10, i, data=i)
+```
+
+We can filtering all edges with source node with data < 3:
+
+```python
+list(search_direct_relationships(graph=g, source={"lt": ["data", 3]}))
+
+[(0, 10), (1, 11), (2, 12)]
 ```
 
 
+We can filtering all edges with:
+ - source node with data < 8
+ - edge with data > 15
+
+```python
+list(search_direct_relationships(graph=g, source={"lt": ["data", 8]}, edge={"gt": ["data", 15]}))
+
+>> [(6, 16), (7, 17)]
+```
+
+We can filtering all edges with:
+ - source node with data > 9
+ - edge with data > 15
+ - target node with data < 22
+
+```python
+search_direct_relationships(
+            graph=g, source={"gt": ["data", 9]}, edge={"gt": ["data", 15]}, target={'lt': ["data", 22]}
+        )
+    )
+
+>> [(10, 20), (11, 21)]
+```
+
 ## API
 
-[search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges) and [search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
+[search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges)
+[search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) 
+[search_direct_relationships](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships) 
+
+
+All this function are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
 
 Quickly, ```Evaluator``` are function with this signature: (context) -> bool
 And ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
@@ -77,10 +129,9 @@ With networkX, node and edge attributes are dictionary like.
 
 
 
-
 ## Query language
 
-We sefine a json query language like [json-query-language](https://github.com/clue/json-query-language/blob/master/SYNTAX.md) 
+We define a little json query language like [json-query-language](https://github.com/clue/json-query-language/blob/master/SYNTAX.md) 
 against nodes or edges attributes.
 
 
