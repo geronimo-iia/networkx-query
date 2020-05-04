@@ -31,7 +31,7 @@ $ poetry add networkx-query
 
 ## Usage
 
-Searching node:
+### Searching nodes
 
 ```python
 import networkx as nx
@@ -49,14 +49,23 @@ for node_id in search_nodes(g, {"==": [("product",), "chocolate"]}):
     print(node_id)
 
 >> 1
+```
 
+### Searching edges
+
+```python
 for edge_id in search_edges(g, {"eq": [("action",), "produce"]}):
     print(edge_id)
 
 >> (3, 2)
 ```
 
-You could do the same with edges using ```search_edges```.
+### Searching relation ship
+
+
+```python
+```
+
 
 ## API
 
@@ -65,6 +74,9 @@ You could do the same with edges using ```search_edges```.
 Quickly, ```Evaluator``` are function with this signature: (context) -> bool
 And ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
 With networkX, node and edge attributes are dictionary like.
+
+
+
 
 ## Query language
 
@@ -110,7 +122,7 @@ We support this operators:
 | contains |       | Path, str       | Check if an attribut path exists and contains specified value.                |
 | eq       | `==`  | Path, Any       | Check if an attribut path exists and equals specified value.                  |
 | neq      | `!=`  | Path, Any       | Check if an attribut path did not exists or not equals specified value.       |
-| gt       |  `<`  | Path, Any       | Check if an attribut path exists and greather that specified value.           |
+| gt       |  `>`  | Path, Any       | Check if an attribut path exists and greather that specified value.           |
 | lt       |  `<`  | Path, Any       | Check if an attribut path exists and lower that specified value.              |
 | gte      | `>=`  | Path, Any       | Check if an attribut path exists and greather or equals that specified value. |
 | lte      | `<=`  | Path, Any       | Check if an attribut path exists and lower or equals that specified value.    |

@@ -37,7 +37,7 @@ GIT_DIR = .git
 	@touch $@
 
 poetry.lock: pyproject.toml
-	poetry lock
+	#poetry lock
 
 .cache:
 	@mkdir -p .cache

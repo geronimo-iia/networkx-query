@@ -12,7 +12,7 @@ from .definition import (
 )
 from .operator import *  # noqa: F401,F403
 
-__all__ = ["parse", "explain", "compile_ast"]
+__all__ = ["parse", "explain", "compile_ast", "prepare_query"]
 
 
 def _check_item_ast(item: ItemAST, stack: deque) -> ItemAST:
@@ -67,3 +67,19 @@ def compile_ast(ast: ItemAST) -> Evaluator:
     if ast.op.combinator:
         return operator_factory(ast.op.function, *list(map(compile_ast, ast.args)))
     return operator_factory(ast.op.function, *ast.args)
+
+
+def prepare_query(query: Dict) -> Evaluator:
+    """Transform expression query as a function.
+
+    Arguments:
+        query (Dict): expression query as dictionary
+
+    Returns:
+        (Evaluator): evaluator function
+
+    Exceptions:
+        (ParserException): if a parse error occurs
+
+    """
+    return compile_ast(parse(expra=query))

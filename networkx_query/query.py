@@ -3,30 +3,15 @@ from typing import Any, Dict, Iterable, Tuple
 
 from networkx import Graph
 
-from .definition import Evaluator, ParserException
-from .parser import compile_ast, parse
 
-__all__ = ['search_nodes', 'search_edges', 'prepare_query', 'ParserException']
+from .parser import prepare_query
+from .utils import get_first_item, get_two_first_items
 
-
-def prepare_query(query: Dict) -> Evaluator:
-    """Transform expression query as a function.
-
-    Arguments:
-        query (Dict): expression query as dictionary
-
-    Returns:
-        (Evaluator): evaluator function
-
-    Exceptions:
-        (ParserException): if a parse error occurs
-
-    """
-    return compile_ast(parse(expra=query))
+__all__ = ['search_nodes', 'search_edges']
 
 
 def search_nodes(graph: Graph, query: Dict) -> Iterable[Any]:
-    """Search nodes in specified grapg which match query.
+    """Search nodes in specified graph which match query.
 
     Arguments:
         graph (Graph): networkx graph instance
@@ -40,14 +25,11 @@ def search_nodes(graph: Graph, query: Dict) -> Iterable[Any]:
 
     """
     _predicate = prepare_query(query)
-
-    return map(
-        lambda n: n[0], filter(lambda n: n[1], map(lambda node: (node[0], _predicate(node[1])), graph.nodes(data=True)))
-    )
+    return map(get_first_item, filter(lambda node: _predicate(node[1]), graph.nodes(data=True)))
 
 
 def search_edges(graph: Graph, query: Dict) -> Iterable[Tuple]:
-    """Search edges in specified grapg which match query.
+    """Search edges in specified graph which match query.
 
     Arguments:
         graph (Graph): networkx graph instance
@@ -61,7 +43,4 @@ def search_edges(graph: Graph, query: Dict) -> Iterable[Tuple]:
 
     """
     _predicate = prepare_query(query)
-    return map(
-        lambda n: n[0],
-        filter(lambda n: n[1], map(lambda edge: ((edge[0], edge[1]), _predicate(edge[2])), graph.edges(data=True))),
-    )
+    return map(get_two_first_items, filter(lambda edge: _predicate(edge[2]), graph.edges(data=True)))
