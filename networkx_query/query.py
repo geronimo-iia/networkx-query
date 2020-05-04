@@ -3,7 +3,6 @@ from typing import Any, Dict, Iterable, Tuple
 
 from networkx import Graph
 
-
 from .parser import prepare_query
 from .utils import get_first_item, get_two_first_items
 

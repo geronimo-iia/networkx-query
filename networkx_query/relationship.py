@@ -1,9 +1,10 @@
-from typing import Dict, Iterable, Tuple, Optional
+from itertools import chain
+from typing import Dict, Iterable, Optional, Tuple
 
 from networkx import Graph
-from .query import search_edges, prepare_query
+
+from .query import prepare_query, search_edges
 from .utils import get_first_item, get_second_item
-from itertools import chain
 
 __all__ = ["search_direct_relationships", "join_relationship"]
 
@@ -38,7 +39,7 @@ def search_direct_relationships(
 
 def join_relationship(
     graph: Graph, source: Iterable[Tuple], target: Iterable[Tuple], join_on_source_origin: Optional[bool] = True
-) -> Iterable[Tuple]:
+) -> Iterable[Tuple]:  # pragma: no cover
     """Join two relation ship.
 
     With  source = (a, b), target = (c, d)

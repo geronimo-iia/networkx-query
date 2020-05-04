@@ -1,7 +1,6 @@
 import networkx as nx
 
-from networkx_query.query import search_direct_relationships
-
+from networkx_query.relationship import search_direct_relationships
 
 g = nx.DiGraph()
 for i in range(30):
