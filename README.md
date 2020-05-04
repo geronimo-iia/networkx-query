@@ -31,7 +31,7 @@ $ poetry add networkx-query
 
 ## Usage
 
-Searching node:
+### Searching nodes
 
 ```python
 import networkx as nx
@@ -49,35 +49,94 @@ for node_id in search_nodes(g, {"==": [("product",), "chocolate"]}):
     print(node_id)
 
 >> 1
+```
 
+### Searching edges
+
+```python
 for edge_id in search_edges(g, {"eq": [("action",), "produce"]}):
     print(edge_id)
 
 >> (3, 2)
 ```
 
-You could do the same with edges using ```search_edges```.
+### Searching relation ship
+
+With ```search_direct_relationships``` you can made a query which filter edges on their :
+ - source node attributes
+ - edge attributes
+ - target node attributes
+
+With this graph:
+
+```python
+import networkx as nx
+from networkx_query import search_direct_relationships
+
+g = nx.DiGraph()
+for i in range(30):
+    g.add_node(i, data=i)
+
+for i in range(10, 30):
+    g.add_edge(i - 10, i, data=i)
+```
+
+We can filtering all edges with source node with data < 3:
+
+```python
+list(search_direct_relationships(graph=g, source={"lt": ["data", 3]}))
+
+[(0, 10), (1, 11), (2, 12)]
+```
+
+
+We can filtering all edges with:
+ - source node with data < 8
+ - edge with data > 15
+
+```python
+list(search_direct_relationships(graph=g, source={"lt": ["data", 8]}, edge={"gt": ["data", 15]}))
+
+>> [(6, 16), (7, 17)]
+```
+
+We can filtering all edges with:
+ - source node with data > 9
+ - edge with data > 15
+ - target node with data < 22
+
+```python
+search_direct_relationships(
+            graph=g, source={"gt": ["data", 9]}, edge={"gt": ["data", 15]}, target={'lt': ["data", 22]}
+        )
+    )
+
+>> [(10, 20), (11, 21)]
+```
 
 ## API
 
-[search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges) and [search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
+Actually, we have:
 
-Evaluator are function with this signature: (context) -> bool
+- [search_edges](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges)
+- [search_nodes](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes) 
+- [search_direct_relationships](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships) 
 
-Context is a dictionnary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
+
+All this function are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
+
+Quickly, ```Evaluator``` are function with this signature: (context) -> bool, and ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
+With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.
+
 
 
 ## Query language
 
-Define a json query language like [json-query-language](https://github.com/clue/json-query-language/blob/master/SYNTAX.md) 
+We define a little json query language like [json-query-language](https://github.com/clue/json-query-language/blob/master/SYNTAX.md) 
 against nodes or edges attributes.
-
-A Path is a single string or a tuple of string which represente a path in a tree (here a dictionnary).
 
 
 ### Expressions
-
-All those expression are evaluate against a context wich is a dictionnary like (as can be a NodeDataView or an EdgeDataView).
 
 Main expression syntax turn around this:
 
@@ -104,32 +163,35 @@ Test if a node/edge has an attribute product : { "definition": { "name": xxx }} 
 }
 ```
 
+The tuple ```("product", "definition", "name")``` is a path in attribut dictionnary.
+A Path is a single string or a tuple of string which represente a path in a tree (here a dictionary).
+
 We support this operators:
 
-| Name     | Alias | Parameters      | Description                                                                                   |
-| -------- | :---: | --------------- | --------------------------------------------------------------------------------------------- |
-| has      |       | Path            | Check if path exists in context.                                                              |
-| contains |       | Path, str       | Check if an attribut (specifed with path) exists and contains specified value.                |
-| eq       | `==`  | Path, Any       | Check if an attribut (specifed with path) exists and equals specified value.                  |
-| neq      | `!=`  | Path, Any       | Check if an attribut (specifed with path) did not exists or not equals specified value.       |
-| gt       |  `<`  | Path, Any       | Check if an attribut (specifed with path) exists and greather that specified value.           |
-| lt       |  `<`  | Path, Any       | Check if an attribut (specifed with path) exists and lower that specified value.              |
-| gte      | `>=`  | Path, Any       | Check if an attribut (specifed with path) exists and greather or equals that specified value. |
-| lte      | `<=`  | Path, Any       | Check if an attribut (specifed with path) exists and lower or equals that specified value.    |
-| in       | `:=`  | Path, List[Any] | Check if an attribut (specifed with path) exists and attribut value in specified values.      |
+| Name     | Alias | Parameters      | Description                                                                   |
+| -------- | :---: | --------------- | ----------------------------------------------------------------------------- |
+| has      |       | Path            | Check if path exists in context.                                              |
+| contains |       | Path, str       | Check if an attribut path exists and contains specified value.                |
+| eq       | `==`  | Path, Any       | Check if an attribut path exists and equals specified value.                  |
+| neq      | `!=`  | Path, Any       | Check if an attribut path did not exists or not equals specified value.       |
+| gt       |  `>`  | Path, Any       | Check if an attribut path exists and greather that specified value.           |
+| lt       |  `<`  | Path, Any       | Check if an attribut path exists and lower that specified value.              |
+| gte      | `>=`  | Path, Any       | Check if an attribut path exists and greather or equals that specified value. |
+| lte      | `<=`  | Path, Any       | Check if an attribut path exists and lower or equals that specified value.    |
+| in       | `:=`  | Path, List[Any] | Check if an attribut path exists and attribut value in specified values.      |
 
 
 ### Boolean composition of matching expression
 
 We support this operators:
 
-| Name | Alias | Parameters    | Description           |
-| ---- | :---: | ------------- | --------------------- |
-| and  | `&&`  | list of query | Define And operator.  |
-| or   | \|\|  | list of query | Define Or operator.   |
-| xor  |       | list of query | Define xor operator.  |
-| nxor |       | list of query | Define nxor operator. |
-| not  |  `!`  | query         | Define Not operator.  |
+| Name | Alias | Parameters    | Description    |
+| ---- | :---: | ------------- | -------------- |
+| and  | `&&`  | list of query | And operator.  |
+| or   | \|\|  | list of query | Or operator.   |
+| xor  |       | list of query | xor operator.  |
+| nxor |       | list of query | nxor operator. |
+| not  |  `!`  | query         | Not operator.  |
 
 
 By default, a list of expressions is equivalent of an "AND" of this expressions.
@@ -169,7 +231,8 @@ is equivalent to:
 
 ## Wished Features
 
-- add match node, edges, path specification
-- add set expression on node/edges with constraints
+- add projection expression (a return like statement)
+- add join relation ship 
 - add path condition between node
+
 

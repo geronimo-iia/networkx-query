@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>networkx-query &mdash; networkx_query 0.2.0 documentation</title>
+  <title>networkx-query &mdash; networkx_query 1.0.1 documentation</title>
   
 
   
@@ -176,7 +176,8 @@
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Searching node:</p>
+<div class="section" id="searching-nodes">
+<h3>Searching nodes<a class="headerlink" href="#searching-nodes" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">from</span> <span class="nn">networkx_query</span> <span class="kn">import</span> <span class="n">search_nodes</span><span class="p">,</span> <span class="n">search_edges</span>
 
@@ -192,29 +193,88 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;</span> <span class="mi">1</span>
-
-<span class="k">for</span> <span class="n">edge_id</span> <span class="ow">in</span> <span class="n">search_edges</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;action&quot;</span><span class="p">,),</span> <span class="s2">&quot;produce&quot;</span><span class="p">]}):</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="searching-edges">
+<h3>Searching edges<a class="headerlink" href="#searching-edges" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">edge_id</span> <span class="ow">in</span> <span class="n">search_edges</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;eq&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;action&quot;</span><span class="p">,),</span> <span class="s2">&quot;produce&quot;</span><span class="p">]}):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">edge_id</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You could do the same with edges using <code class="docutils literal notranslate"><span class="pre">search_edges</span></code>.</p>
+</div>
+<div class="section" id="searching-relation-ship">
+<h3>Searching relation ship<a class="headerlink" href="#searching-relation-ship" title="Permalink to this headline">¶</a></h3>
+<p>With <code class="docutils literal notranslate"><span class="pre">search_direct_relationships</span></code> you can made a query which filter edges on their :</p>
+<ul class="simple">
+<li><p>source node attributes</p></li>
+<li><p>edge attributes</p></li>
+<li><p>target node attributes</p></li>
+</ul>
+<p>With this graph:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">from</span> <span class="nn">networkx_query</span> <span class="kn">import</span> <span class="n">search_direct_relationships</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can filtering all edges with source node with data &lt; 3:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">search_direct_relationships</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}))</span>
+
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>We can filtering all edges with:</p>
+<ul class="simple">
+<li><p>source node with data &lt; 8</p></li>
+<li><p>edge with data &gt; 15</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">search_direct_relationships</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">]},</span> <span class="n">edge</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;gt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">]}))</span>
+
+<span class="o">&gt;&gt;</span> <span class="p">[(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">17</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>We can filtering all edges with:</p>
+<ul class="simple">
+<li><p>source node with data &gt; 9</p></li>
+<li><p>edge with data &gt; 15</p></li>
+<li><p>target node with data &lt; 22</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">search_direct_relationships</span><span class="p">(</span>
+            <span class="n">graph</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;gt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">]},</span> <span class="n">edge</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;gt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">]},</span> <span class="n">target</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">]}</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges">search_edges</a> and <a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes">search_nodes</a> are based on <a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query">prepare_query</a> which return an Evaluator.</p>
-<p>Evaluator are function with this signature: (context) -&gt; bool</p>
-<p>Context is a dictionnary like structure (with in and [] methods, and support <strong>contains</strong> or  (<strong>iter</strong> and <strong>getitem</strong>))</p>
+<p>Actually, we have:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges">search_edges</a></p></li>
+<li><p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes">search_nodes</a></p></li>
+<li><p><a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships">search_direct_relationships</a></p></li>
+</ul>
+<p>All this function are based on <a class="reference external" href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query">prepare_query</a> which return an Evaluator.</p>
+<p>Quickly, <code class="docutils literal notranslate"><span class="pre">Evaluator</span></code> are function with this signature: (context) -&gt; bool, and <code class="docutils literal notranslate"><span class="pre">Context</span></code> is a dictionary like structure (with in and [] methods, and support <strong>contains</strong> or  (<strong>iter</strong> and <strong>getitem</strong>))
+With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.</p>
 </div>
 <div class="section" id="query-language">
 <h2>Query language<a class="headerlink" href="#query-language" title="Permalink to this headline">¶</a></h2>
-<p>Define a json query language like <a class="reference external" href="https://github.com/clue/json-query-language/blob/master/SYNTAX.md">json-query-language</a>
+<p>We define a little json query language like <a class="reference external" href="https://github.com/clue/json-query-language/blob/master/SYNTAX.md">json-query-language</a>
 against nodes or edges attributes.</p>
-<p>A Path is a single string or a tuple of string which represente a path in a tree (here a dictionnary).</p>
 <div class="section" id="expressions">
 <h3>Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h3>
-<p>All those expression are evaluate against a context wich is a dictionnary like (as can be a NodeDataView or an EdgeDataView).</p>
 <p>Main expression syntax turn around this:</p>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>{
     operator_name : parameters
@@ -236,6 +296,8 @@ against nodes or edges attributes.</p>
 }
 </pre></div>
 </div>
+<p>The tuple <code class="docutils literal notranslate"><span class="pre">(&quot;product&quot;,</span> <span class="pre">&quot;definition&quot;,</span> <span class="pre">&quot;name&quot;)</span></code> is a path in attribut dictionnary.
+A Path is a single string or a tuple of string which represente a path in a tree (here a dictionary).</p>
 <p>We support this operators:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -260,42 +322,42 @@ against nodes or edges attributes.</p>
 <tr class="row-odd"><td><p>contains</p></td>
 <td></td>
 <td><p>Path, str</p></td>
-<td><p>Check if an attribut (specifed with path) exists and contains specified value.</p></td>
+<td><p>Check if an attribut path exists and contains specified value.</p></td>
 </tr>
 <tr class="row-even"><td><p>eq</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
 <td><p>Path, Any</p></td>
-<td><p>Check if an attribut (specifed with path) exists and equals specified value.</p></td>
+<td><p>Check if an attribut path exists and equals specified value.</p></td>
 </tr>
 <tr class="row-odd"><td><p>neq</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">!=</span></code></p></td>
 <td><p>Path, Any</p></td>
-<td><p>Check if an attribut (specifed with path) did not exists or not equals specified value.</p></td>
+<td><p>Check if an attribut path did not exists or not equals specified value.</p></td>
 </tr>
 <tr class="row-even"><td><p>gt</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
 <td><p>Path, Any</p></td>
-<td><p>Check if an attribut (specifed with path) exists and greather that specified value.</p></td>
+<td><p>Check if an attribut path exists and greather that specified value.</p></td>
 </tr>
 <tr class="row-odd"><td><p>lt</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
 <td><p>Path, Any</p></td>
-<td><p>Check if an attribut (specifed with path) exists and lower that specified value.</p></td>
+<td><p>Check if an attribut path exists and lower that specified value.</p></td>
 </tr>
 <tr class="row-even"><td><p>gte</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p></td>
 <td><p>Path, Any</p></td>
-<td><p>Check if an attribut (specifed with path) exists and greather or equals that specified value.</p></td>
+<td><p>Check if an attribut path exists and greather or equals that specified value.</p></td>
 </tr>
 <tr class="row-odd"><td><p>lte</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></p></td>
 <td><p>Path, Any</p></td>
-<td><p>Check if an attribut (specifed with path) exists and lower or equals that specified value.</p></td>
+<td><p>Check if an attribut path exists and lower or equals that specified value.</p></td>
 </tr>
 <tr class="row-even"><td><p>in</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">:=</span></code></p></td>
 <td><p>Path, List[Any]</p></td>
-<td><p>Check if an attribut (specifed with path) exists and attribut value in specified values.</p></td>
+<td><p>Check if an attribut path exists and attribut value in specified values.</p></td>
 </tr>
 </tbody>
 </table>
@@ -321,27 +383,27 @@ against nodes or edges attributes.</p>
 <tr class="row-even"><td><p>and</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></p></td>
 <td><p>list of query</p></td>
-<td><p>Define And operator.</p></td>
+<td><p>And operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p>or</p></td>
 <td><p>||</p></td>
 <td><p>list of query</p></td>
-<td><p>Define Or operator.</p></td>
+<td><p>Or operator.</p></td>
 </tr>
 <tr class="row-even"><td><p>xor</p></td>
 <td></td>
 <td><p>list of query</p></td>
-<td><p>Define xor operator.</p></td>
+<td><p>xor operator.</p></td>
 </tr>
 <tr class="row-odd"><td><p>nxor</p></td>
 <td></td>
 <td><p>list of query</p></td>
-<td><p>Define nxor operator.</p></td>
+<td><p>nxor operator.</p></td>
 </tr>
 <tr class="row-even"><td><p>not</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">!</span></code></p></td>
 <td><p>query</p></td>
-<td><p>Define Not operator.</p></td>
+<td><p>Not operator.</p></td>
 </tr>
 </tbody>
 </table>
@@ -381,8 +443,8 @@ against nodes or edges attributes.</p>
 <div class="section" id="wished-features">
 <h2>Wished Features<a class="headerlink" href="#wished-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>add match node, edges, path specification</p></li>
-<li><p>add set expression on node/edges with constraints</p></li>
+<li><p>add projection expression (a return like statement)</p></li>
+<li><p>add join relation ship</p></li>
 <li><p>add path condition between node</p></li>
 </ul>
 </div>

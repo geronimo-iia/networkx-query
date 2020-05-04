@@ -1,9 +1,15 @@
 # Change Log
 
+## 1.0.1
+
+- fix documentation syntax
+- add search_direct_relationships function
+- rewrote search_edges and search_nodes (avoid extra filter step)
+
 ## 1.0.0 (2020-05-02)
 
 - complete documentation
-- add litlle example
+- add little example
 - add search_edges, search_nodes for quick and eazy usage
 - complete coverage
 
