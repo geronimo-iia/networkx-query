@@ -1,0 +1,864 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="reference/">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
+    
+    
+      
+        <title>networkx query</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#networkx-query" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="networkx query" class="md-header__button md-logo" aria-label="networkx query" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            networkx query
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/geronimo-iia/networkx_query" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    geronimo-iia/networkx_query
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="networkx query" class="md-nav__button md-logo" aria-label="networkx query" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    networkx query
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/geronimo-iia/networkx_query" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    geronimo-iia/networkx_query
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Home
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-nodes" class="md-nav__link">
+    Searching nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-edges" class="md-nav__link">
+    Searching edges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-relation-ship" class="md-nav__link">
+    Searching relation ship
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-language" class="md-nav__link">
+    Query language
+  </a>
+  
+    <nav class="md-nav" aria-label="Query language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    Expressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-matching-expression" class="md-nav__link">
+    Basic matching expression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-composition-of-matching-expression" class="md-nav__link">
+    Boolean composition of matching expression
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wished-features" class="md-nav__link">
+    Wished Features
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/" class="md-nav__link">
+        Reference
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_of_conduct/" class="md-nav__link">
+        Code of conduct
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-nodes" class="md-nav__link">
+    Searching nodes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-edges" class="md-nav__link">
+    Searching edges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-relation-ship" class="md-nav__link">
+    Searching relation ship
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-language" class="md-nav__link">
+    Query language
+  </a>
+  
+    <nav class="md-nav" aria-label="Query language">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    Expressions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-matching-expression" class="md-nav__link">
+    Basic matching expression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-composition-of-matching-expression" class="md-nav__link">
+    Boolean composition of matching expression
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wished-features" class="md-nav__link">
+    Wished Features
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<!-- BEGIN INCLUDE ../README.md -->
+<h1 id="networkx-query">networkx-query</h1>
+<p><a href="https://travis-ci.com/geronimo-iia/networkx-query"><img alt="Unix Build Status" src="https://img.shields.io/travis/geronimo-iia/networkx-query/master.svg?label=unix" /></a><a href="https://coveralls.io/r/geronimo-iia/networkx-query"><img alt="Coverage Status" src="https://img.shields.io/coveralls/geronimo-iia/networkx-query/master.svg" /></a>
+<a href="https://www.codacy.com/app/geronimo-iia/networkx-query?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=geronimo-iia/networkx-query&amp;utm_campaign=Badge_Grade"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382" /></a><a href="https://scrutinizer-ci.com/g/geronimo-iia/networkx-query/?branch=master"><img alt="Scrutinizer Code Quality" src="https://img.shields.io/scrutinizer/g/geronimo-iia/networkx-query.svg" /></a>
+<a href="https://pypi.org/project/networkx-query"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/networkx-query.svg" /></a>
+<a href="https://pypi.org/project/networkx-query"><img alt="PyPI License" src="https://img.shields.io/pypi/l/networkx-query.svg" /></a></p>
+<p>Versions following <a href="https://semver.org/">Semantic Versioning</a></p>
+<h2 id="overview">Overview</h2>
+<p>NetworkX Query Tool (preview)</p>
+<p>See <a href="https://geronimo-iia.github.io/networkx-query">documentation</a>.</p>
+<h2 id="installation">Installation</h2>
+<p>Install this library directly into an activated virtual environment:</p>
+<pre><code class="language-text">$ pip install networkx-query
+</code></pre>
+<p>or add it to your <a href="https://poetry.eustace.io/">Poetry</a> project:</p>
+<pre><code class="language-text">$ poetry add networkx-query
+</code></pre>
+<h2 id="usage">Usage</h2>
+<h3 id="searching-nodes">Searching nodes</h3>
+<pre><code class="language-python">import networkx as nx
+from networkx_query import search_nodes, search_edges
+
+g = nx.DiGraph()
+g.add_node(1, product=&quot;chocolate&quot;)
+g.add_node(2, product=&quot;milk&quot;)
+g.add_node(3, product=&quot;coat&quot;)
+g.add_edge(1, 2, action=&quot;shake&quot;)
+g.add_edge(3, 2, action=&quot;produce&quot;)
+
+
+for node_id in search_nodes(g, {&quot;==&quot;: [(&quot;product&quot;,), &quot;chocolate&quot;]}):
+    print(node_id)
+
+&gt;&gt; 1
+</code></pre>
+<h3 id="searching-edges">Searching edges</h3>
+<pre><code class="language-python">for edge_id in search_edges(g, {&quot;eq&quot;: [(&quot;action&quot;,), &quot;produce&quot;]}):
+    print(edge_id)
+
+&gt;&gt; (3, 2)
+</code></pre>
+<h3 id="searching-relation-ship">Searching relation ship</h3>
+<p>With <code>search_direct_relationships</code> you can made a query which filter edges on their :
+ - source node attributes
+ - edge attributes
+ - target node attributes</p>
+<p>With this graph:</p>
+<pre><code class="language-python">import networkx as nx
+from networkx_query import search_direct_relationships
+
+g = nx.DiGraph()
+for i in range(30):
+    g.add_node(i, data=i)
+
+for i in range(10, 30):
+    g.add_edge(i - 10, i, data=i)
+</code></pre>
+<p>We can filtering all edges with source node with data &lt; 3:</p>
+<pre><code class="language-python">list(search_direct_relationships(graph=g, source={&quot;lt&quot;: [&quot;data&quot;, 3]}))
+
+[(0, 10), (1, 11), (2, 12)]
+</code></pre>
+<p>We can filtering all edges with:
+ - source node with data &lt; 8
+ - edge with data &gt; 15</p>
+<pre><code class="language-python">list(search_direct_relationships(graph=g, source={&quot;lt&quot;: [&quot;data&quot;, 8]}, edge={&quot;gt&quot;: [&quot;data&quot;, 15]}))
+
+&gt;&gt; [(6, 16), (7, 17)]
+</code></pre>
+<p>We can filtering all edges with:
+ - source node with data &gt; 9
+ - edge with data &gt; 15
+ - target node with data &lt; 22</p>
+<pre><code class="language-python">search_direct_relationships(
+            graph=g, source={&quot;gt&quot;: [&quot;data&quot;, 9]}, edge={&quot;gt&quot;: [&quot;data&quot;, 15]}, target={'lt': [&quot;data&quot;, 22]}
+        )
+    )
+
+&gt;&gt; [(10, 20), (11, 21)]
+</code></pre>
+<h2 id="api">API</h2>
+<p>Actually, we have:</p>
+<ul>
+<li><a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges">search_edges</a></li>
+<li><a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes">search_nodes</a> </li>
+<li><a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships">search_direct_relationships</a> </li>
+</ul>
+<p>All this function are based on <a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query">prepare_query</a> which return an Evaluator.</p>
+<p>Quickly, <code>Evaluator</code> are function with this signature: (context) -&gt; bool, and <code>Context</code> is a dictionary like structure (with in and [] methods, and support <strong>contains</strong> or  (<strong>iter</strong> and <strong>getitem</strong>))
+With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.</p>
+<h2 id="query-language">Query language</h2>
+<p>We define a little json query language like <a href="https://github.com/clue/json-query-language/blob/master/SYNTAX.md">json-query-language</a> 
+against nodes or edges attributes.</p>
+<h3 id="expressions">Expressions</h3>
+<p>Main expression syntax turn around this:</p>
+<pre><code>{
+    operator_name : parameters
+}
+</code></pre>
+<h3 id="basic-matching-expression">Basic matching expression</h3>
+<p>Test if a node/edge has an attribute named "my_property":</p>
+<pre><code>{
+    &quot;has&quot; : &quot;my_property&quot;
+}
+</code></pre>
+<p>Test if a node/edge has an attribute product : { "definition": { "name": xxx }} with xxx equals to "chocolate".</p>
+<pre><code>{
+    &quot;eq&quot; : [ (&quot;product&quot;, &quot;definition&quot;, &quot;name&quot;), &quot;chocolate&quot;]
+}
+</code></pre>
+<p>The tuple <code>("product", "definition", "name")</code> is a path in attribut dictionnary.
+A Path is a single string or a tuple of string which represente a path in a tree (here a dictionary).</p>
+<p>We support this operators:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th align="center">Alias</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>has</td>
+<td align="center"></td>
+<td>Path</td>
+<td>Check if path exists in context.</td>
+</tr>
+<tr>
+<td>contains</td>
+<td align="center"></td>
+<td>Path, str</td>
+<td>Check if an attribut path exists and contains specified value.</td>
+</tr>
+<tr>
+<td>eq</td>
+<td align="center"><code>==</code></td>
+<td>Path, Any</td>
+<td>Check if an attribut path exists and equals specified value.</td>
+</tr>
+<tr>
+<td>neq</td>
+<td align="center"><code>!=</code></td>
+<td>Path, Any</td>
+<td>Check if an attribut path did not exists or not equals specified value.</td>
+</tr>
+<tr>
+<td>gt</td>
+<td align="center"><code>&gt;</code></td>
+<td>Path, Any</td>
+<td>Check if an attribut path exists and greather that specified value.</td>
+</tr>
+<tr>
+<td>lt</td>
+<td align="center"><code>&lt;</code></td>
+<td>Path, Any</td>
+<td>Check if an attribut path exists and lower that specified value.</td>
+</tr>
+<tr>
+<td>gte</td>
+<td align="center"><code>&gt;=</code></td>
+<td>Path, Any</td>
+<td>Check if an attribut path exists and greather or equals that specified value.</td>
+</tr>
+<tr>
+<td>lte</td>
+<td align="center"><code>&lt;=</code></td>
+<td>Path, Any</td>
+<td>Check if an attribut path exists and lower or equals that specified value.</td>
+</tr>
+<tr>
+<td>in</td>
+<td align="center"><code>:=</code></td>
+<td>Path, List[Any]</td>
+<td>Check if an attribut path exists and attribut value in specified values.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="boolean-composition-of-matching-expression">Boolean composition of matching expression</h3>
+<p>We support this operators:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th align="center">Alias</th>
+<th>Parameters</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>and</td>
+<td align="center"><code>&amp;&amp;</code></td>
+<td>list of query</td>
+<td>And operator.</td>
+</tr>
+<tr>
+<td>or</td>
+<td align="center">||</td>
+<td>list of query</td>
+<td>Or operator.</td>
+</tr>
+<tr>
+<td>xor</td>
+<td align="center"></td>
+<td>list of query</td>
+<td>xor operator.</td>
+</tr>
+<tr>
+<td>nxor</td>
+<td align="center"></td>
+<td>list of query</td>
+<td>nxor operator.</td>
+</tr>
+<tr>
+<td>not</td>
+<td align="center"><code>!</code></td>
+<td>query</td>
+<td>Not operator.</td>
+</tr>
+</tbody>
+</table>
+<p>By default, a list of expressions is equivalent of an "AND" of this expressions.</p>
+<p>Example:</p>
+<pre><code>{
+    'not': {
+        'has': ['group']
+    },
+    'has': 'application',
+    'eq': [('_link', 'other', 'weight'), 2]
+}
+</code></pre>
+<p>is equivalent to:</p>
+<pre><code>{
+    'and': [
+        {
+            'not': [
+                {
+                    'has': ['group']
+                }
+            ]
+        },
+        {
+            'has': ['application']
+        },
+        {
+            'eq': [('_link', 'other', 'weight'), 2]
+        }
+    ]
+}
+</code></pre>
+<h2 id="wished-features">Wished Features</h2>
+<ul>
+<li>add projection expression (a return like statement)</li>
+<li>add join relation ship </li>
+<li>add path condition between node</li>
+</ul>
+<!-- END INCLUDE -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tracking", "navigation.path", "navigation.instant"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  </body>
+</html>
