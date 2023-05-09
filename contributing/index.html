@@ -345,81 +345,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#confirm-installation" class="md-nav__link">
-    Confirm Installation
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-tasks" class="md-nav__link">
-    Development Tasks
-  </a>
-  
-    <nav class="md-nav" aria-label="Development Tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#manual" class="md-nav__link">
-    Manual
-  </a>
-  
-    <nav class="md-nav" aria-label="Manual">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-project-dependencies" class="md-nav__link">
-    Install project dependencies
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-the-tests" class="md-nav__link">
-    Run the tests
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-static-analysis" class="md-nav__link">
-    Run static analysis
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#build-the-documentation" class="md-nav__link">
-    Build the documentation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#build-the-package" class="md-nav__link">
-    Build the package
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ontain-help" class="md-nav__link">
-    Ontain help
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#integration-with-visual-studio-code" class="md-nav__link">
     Integration With Visual Studio Code
   </a>
@@ -524,81 +449,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#confirm-installation" class="md-nav__link">
-    Confirm Installation
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-tasks" class="md-nav__link">
-    Development Tasks
-  </a>
-  
-    <nav class="md-nav" aria-label="Development Tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#manual" class="md-nav__link">
-    Manual
-  </a>
-  
-    <nav class="md-nav" aria-label="Manual">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-project-dependencies" class="md-nav__link">
-    Install project dependencies
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-the-tests" class="md-nav__link">
-    Run the tests
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-static-analysis" class="md-nav__link">
-    Run static analysis
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#build-the-documentation" class="md-nav__link">
-    Build the documentation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#build-the-package" class="md-nav__link">
-    Build the package
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ontain-help" class="md-nav__link">
-    Ontain help
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#integration-with-visual-studio-code" class="md-nav__link">
     Integration With Visual Studio Code
   </a>
@@ -637,7 +487,7 @@ It utilizes popular libraries to fully automate all development and deployment t
 <h3 id="requirements">Requirements</h3>
 <p>You will need:</p>
 <ul>
-<li>Python 3.7"+</li>
+<li>Python 3.8"+</li>
 <li><a href="https://github.com/pyenv/pyenv#installation">Pyenv</a></li>
 <li><a href="https://python-poetry.org/">poetry</a></li>
 <li>Make with find, sed</li>
@@ -652,42 +502,12 @@ It utilizes popular libraries to fully automate all development and deployment t
 Follow <a href="https://github.com/pyenv/pyenv#installation">https://github.com/pyenv/pyenv#installation</a></p>
 <h3 id="python-installation">Python Installation</h3>
 <p>Do:</p>
-<p><code>$ pyenv install 3.7</code></p>
+<p><code>$ pyenv install 3.8</code></p>
 <p>Note for <a href="https://github.com/pyenv/pyenv/issues/544">MacOS 10.14 user</a>:</p>
 <p><code>bash
-    SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv install 3.7</code></p>
+    SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv install 3.8</code></p>
 <h3 id="poetry-installation-httpspoetryeustaceiodocsinstallation">Poetry Installation: <a href="https://poetry.eustace.io/docs/#installation">https://poetry.eustace.io/docs/#installation</a></h3>
 <p>Poetry will manage our dependencies and create our virtual environment for us.</p>
-<h3 id="confirm-installation">Confirm Installation</h3>
-<p>To confirm these system dependencies are configured correctly:</p>
-<pre><code class="language-bash">$ make doctor
-</code></pre>
-<h2 id="development-tasks">Development Tasks</h2>
-<h3 id="manual">Manual</h3>
-<h4 id="install-project-dependencies">Install project dependencies</h4>
-<pre><code class="language-bash">$ make install
-</code></pre>
-<p>Note:
-- this target create a dummy file <code>.install</code>. The makefile rule depends on pyproject.toml and
-poetry.lock file
-- if for whatever reason, you have to force installation, just remove this <code>.install</code> file and
-execute a <code>make install</code></p>
-<h4 id="run-the-tests">Run the tests</h4>
-<pre><code class="language-bash">$ make test
-</code></pre>
-<h4 id="run-static-analysis">Run static analysis</h4>
-<pre><code class="language-bash">$ make check
-</code></pre>
-<h4 id="build-the-documentation">Build the documentation</h4>
-<pre><code class="language-bash">$ make docs
-</code></pre>
-<h4 id="build-the-package">Build the package</h4>
-<pre><code class="language-bash">$ make build
-</code></pre>
-<h4 id="ontain-help">Ontain help</h4>
-<p>For help:</p>
-<pre><code class="language-bash">$ make help
-</code></pre>
 <h3 id="integration-with-visual-studio-code">Integration With Visual Studio Code</h3>
 <p>Even if we use fabulous tool like pyenv, poetry, ... at the end, we just want to go on, and code.</p>
 <p>So here, few detail of my installation.</p>
@@ -717,14 +537,61 @@ execute a <code>make install</code></p>
     <code>poetry shell</code> will activate project virtual environment.</p>
 </li>
 </ul>
-<h2 id="continuous-integration">Continuous Integration</h2>
-<p>The CI server will report overall build status:</p>
-<pre><code class="language-text">$ make ci
-</code></pre>
-<h2 id="release-tasks">Release Tasks</h2>
-<p>Release to PyPI:</p>
-<pre><code class="language-text">$ make publish
-</code></pre>
+<h2 id="make-target-list">Make Target list</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>debug-info</td>
+<td>Show poetry debug info</td>
+</tr>
+<tr>
+<td>install</td>
+<td>Install project dependencies</td>
+</tr>
+<tr>
+<td>check</td>
+<td>Run linters and static analysis</td>
+</tr>
+<tr>
+<td>test</td>
+<td>Run unit tests</td>
+</tr>
+<tr>
+<td>build</td>
+<td>Builds the source and wheels archives</td>
+</tr>
+<tr>
+<td>build-docs</td>
+<td>Builds  site documentation.</td>
+</tr>
+<tr>
+<td>publish</td>
+<td>Publishes the package, previously built with the build command, to the remote repository</td>
+</tr>
+<tr>
+<td>publish-docs</td>
+<td>Build and publish site documentation.</td>
+</tr>
+<tr>
+<td>clean</td>
+<td>Delete all generated and temporary files</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <!-- END INCLUDE -->
 
 
