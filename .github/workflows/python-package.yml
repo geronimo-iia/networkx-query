@@ -28,7 +28,6 @@ jobs:
       uses: snok/install-poetry@v1
     - name: Install dependencies
       run: make install 
-      # poetry install --no-interaction
     - name: Check Python package
       run: make check
     - name: Test Python package

@@ -30,13 +30,13 @@ install: .install .cache ## Install project dependencies
 
 .install: poetry.lock
 	$(MAKE) configure
+	poetry install
 	poetry check
 	@touch $@
 
 poetry.lock: pyproject.toml
 	$(MAKE) configure
 	poetry lock
-	poetry install
 	$(MAKE) requirements.txt
 	@touch $@
 
@@ -45,9 +45,9 @@ poetry.lock: pyproject.toml
 
 .PHONY: requirements.txt
 requirements.txt:  ## Generate requirements.txt and requirements-dev.txt
-	poetry export --without-hashes -f requirements.txt > requirements.txt
-	sed '1d' requirements.txt
-	poetry export --without-hashes --dev -f requirements.txt > requirements-dev.txt
+	@poetry export --without-hashes -f requirements.txt > requirements.txt
+	@sed '1d' requirements.txt
+	@poetry export --without-hashes --dev -f requirements.txt > requirements-dev.txt
 
 
 .PHONY: configure
@@ -130,6 +130,6 @@ publish-docs:  ## Build and publish sit documentation.
 
 .PHONY: clean
 clean:  ## Delete all generated and temporary files
-	@rm -rf *.spec dist build .eggs *.egg-info .install .cache .coverage htmlcov .mypy_cache .pytest_cache
+	@rm -rf *.spec dist build .eggs *.egg-info .install .cache .coverage htmlcov .mypy_cache .pytest_cache site .ruff_cache
 	@find $(PACKAGES) -type d -name '__pycache__' -exec rm -rf {} +
 
