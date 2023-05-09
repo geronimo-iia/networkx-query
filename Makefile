@@ -4,77 +4,73 @@ REPOSITORY := geronimo-iia/networkx-query
 PACKAGES := $(PACKAGE) tests
 MODULES := $(wildcard $(PACKAGE)/*.py)
 
-# uncomment if you wanna disable test coverage
-# DISABLE_COVERAGE := True
+# const
+.DEFAULT_GOAL := help
+FAILURES := .pytest_cache/v/cache/lastfailed
+DIST_FILES := dist/*.tar.gz dist/*.whl
+
+GIT_COMMIT_SHA := $(shell git rev-parse HEAD)
 
 # MAIN TASKS ##################################################################
 
 .PHONY: all
 all: install
 
-.PHONY: ci
-ci: check test ## Run all tasks that determine CI status
-
-# SYSTEM DEPENDENCIES #########################################################
-
-.PHONY: doctor
-doctor:  ## Confirm system dependencies are available
-	tools/verchew
-
 .PHONY: debug-info
 debug-info:  ## Show poetry debug info
 	poetry debug:info
+
+.PHONY: help
+help: all
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 # PROJECT DEPENDENCIES ########################################################
 
 install: .install .cache ## Install project dependencies
 
-GIT_DIR = .git
 .install: poetry.lock
-	poetry install
+	$(MAKE) configure
 	poetry check
-	@- test -d $(GIT_DIR) && poetry run pre-commit install -f --install-hooks
 	@touch $@
 
 poetry.lock: pyproject.toml
+	$(MAKE) configure
 	poetry lock
+	poetry install
+	$(MAKE) requirements.txt
 	@touch $@
 
 .cache:
 	@mkdir -p .cache
 
-requirements.txt: poetry.lock ## Generate requirements.txt
+.PHONY: requirements.txt
+requirements.txt:  ## Generate requirements.txt and requirements-dev.txt
 	poetry export --without-hashes -f requirements.txt > requirements.txt
+	sed '1d' requirements.txt
+	poetry export --without-hashes --dev -f requirements.txt > requirements-dev.txt
 
+
+.PHONY: configure
+configure:
+	@poetry config virtualenvs.in-project true
+	@poetry run python -m pip install --upgrade pip
 
 # CHECKS ######################################################################
 
 .PHONY: check
 check: install   ## Run linters and static analysis
-	poetry run isort $(PACKAGES) --recursive --apply
+	poetry run isort $(PACKAGES) 
 	poetry run black $(PACKAGES)
-	poetry run flake8 $(PACKAGES)
-	poetry run pydocstyle $(PACKAGES) $(wildcard *.py)
-	poetry run mypy $(PACKAGE)
+	poetry run ruff check $(PACKAGES)
+	poetry run mypy --show-error-codes --config-file pyproject.toml $(PACKAGE)
 
 # TESTS #######################################################################
 
-RANDOM_SEED ?= $(shell date +%s)
-FAILURES := .cache/v/cache/lastfailed
-PYTEST_OPTIONS := --random --random-seed=$(RANDOM_SEED)
-ifdef DISABLE_COVERAGE
-	PYTEST_OPTIONS += --no-cov --disable-warnings
-endif
-
 .PHONY: test
 test: install ## Run unit tests
-
 	@if test -e $(FAILURES); then poetry run pytest tests --last-failed --exitfirst; fi
 	@rm -rf $(FAILURES)
-	poetry run pytest tests $(PYTEST_OPTIONS)
-ifndef DISABLE_COVERAGE
-	@echo  "coverage report is located at htmlcov/index.html"
-endif
+	poetry run pytest
 
 
 # BUILD #######################################################################
@@ -91,52 +87,49 @@ $(DIST_FILES): $(MODULES) pyproject.toml
 
 .PHONY: publish
 publish: build ## Publishes the package, previously built with the build command, to the remote repository
-	@git diff --name-only --exit-code
+	$(MAKE) configure
 	poetry publish
-	@PROJECT_RELEASE=$$(poetry run python -c "import networkx_query; print(networkx_query.__version__);") && \
-		git tag "v$$PROJECT_RELEASE" && \
-		git push origin "v$$PROJECT_RELEASE"
-	@tools/open https://pypi.org/project/networkx-query
+	$(MAKE) tag
 
+
+.PHONY: next-patch-version
+next-patch-version:  ## Increment patch version
+	$(MAKE) configure
+	git checkout main
+	git pull
+	poetry version patch
+	$(MAKE) install
+	git add .
+	git commit -m "Next version"
+	git push origin main
+
+
+.PHONY: tag
+tag:  ## Tags current repository
+	git diff --name-only --exit-code
+	@PROJECT_RELEASE=$$(poetry version | awk 'END {print $$NF}') ; \
+		git tag "v$$PROJECT_RELEASE" ; \
+		git push origin "v$$PROJECT_RELEASE"
+
+.PHONY: release
+release: publish next-patch-version
 
 # DOC #########################################################################
 
-SPHINX_BUILD_DIR = .cache/sphinx
-.PHONY: docs
-docs:  ## Build and publish sit documentation.
-	@rm -rf docs/
-	@rm -rf $(SPHINX_BUILD_DIR)/
-	@mkdir -p $(SPHINX_BUILD_DIR)
-	@poetry run sphinx-build -M html "sphinx" "$(SPHINX_BUILD_DIR)"
-	@mv $(SPHINX_BUILD_DIR)/html docs/
-	@touch docs/.nojekyll
+.PHONY: build-docs
+build-docs:  ## Build and publish sit documentation.
+	@poetry run mkdocs build --clean
+
+
+.PHONY: publish-docs
+publish-docs:  ## Build and publish sit documentation.
+	@poetry run mkdocs gh-deploy  --clean 
 
 
 # CLEANUP #####################################################################
 
 .PHONY: clean
 clean:  ## Delete all generated and temporary files
-	@rm -rf *.spec dist build .eggs *.egg-info .install
-	@rm -rf .cache .pytest .coverage htmlcov
-	@find $(PACKAGES) -name '__pycache__' -delete
-	@rm -rf *.egg-info
+	@rm -rf *.spec dist build .eggs *.egg-info .install .cache .coverage htmlcov .mypy_cache .pytest_cache
+	@find $(PACKAGES) -type d -name '__pycache__' -exec rm -rf {} +
 
-# UPDATE TEMPLATE ############################################################
-
-.PHONY: update-from-template
-
-update-from-template:  ## Update project from template
-	@git diff --name-only --exit-code
-	@cookiecutter gh:geronimo-iia/template-python --output-dir .. --config-file .cookiecutter.yaml --no-input --overwrite-if-exists
-	@git status # shows lots of overridden files
-	@git add . -p # walk through patchsets, selecting files for adding
-	@git commit -m "Updated from template."
-
-
-# HELP ########################################################################
-
-.PHONY: help
-help: all
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-.DEFAULT_GOAL := help
