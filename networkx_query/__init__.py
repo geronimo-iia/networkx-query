@@ -3,7 +3,7 @@ from pkg_resources import DistributionNotFound, get_distribution
 
 from .definition import Evaluator, ParserException
 from .parser import prepare_query
-from .query import search_nodes, search_edges
+from .query import search_edges, search_nodes
 from .relationship import search_direct_relationships
 
 __all__ = [
