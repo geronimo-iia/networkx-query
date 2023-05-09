@@ -5,6 +5,10 @@
 - fix documentation syntax
 - add search_direct_relationships function
 - rewrote search_edges and search_nodes (avoid extra filter step)
+- technical feat:
+    - use ruff as sucessor of flake8
+    - update dev dependencies
+    - use mkdocs
 
 ## 1.0.0 (2020-05-02)
 
