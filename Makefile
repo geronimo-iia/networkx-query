@@ -112,7 +112,7 @@ tag:  ## Tags current repository
 		git push origin "v$$PROJECT_RELEASE"
 
 .PHONY: release
-release: publish next-patch-version
+release: next-patch-version publish
 
 # DOC #########################################################################
 

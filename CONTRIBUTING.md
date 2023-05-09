@@ -11,7 +11,7 @@ It utilizes popular libraries to fully automate all development and deployment t
 
 You will need:
 
-* Python 3.7"+
+* Python 3.8"+
 * [Pyenv](https://github.com/pyenv/pyenv#installation)
 * [poetry](https://python-poetry.org/)
 * Make with find, sed
@@ -34,75 +34,17 @@ Follow [https://github.com/pyenv/pyenv#installation](https://github.com/pyenv/py
 
  Do:
 
- `$ pyenv install 3.7`
+ `$ pyenv install 3.8`
 
 Note for [MacOS 10.14 user](https://github.com/pyenv/pyenv/issues/544):
 
   ```bash
-    SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv install 3.7
+    SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk MACOSX_DEPLOYMENT_TARGET=10.14 pyenv install 3.8
   ```
 
 ### Poetry Installation: [https://poetry.eustace.io/docs/#installation](https://poetry.eustace.io/docs/#installation)
 
 Poetry will manage our dependencies and create our virtual environment for us.
-
-### Confirm Installation
-
-To confirm these system dependencies are configured correctly:
-
-```bash
-$ make doctor
-```
-
-
-## Development Tasks
-
-### Manual
-
-#### Install project dependencies
-
-```bash
-$ make install
-```
-
-Note:
-- this target create a dummy file ```.install```. The makefile rule depends on pyproject.toml and
-poetry.lock file
-- if for whatever reason, you have to force installation, just remove this ```.install``` file and
-execute a ```make install```
-
-
-#### Run the tests
-
-```bash
-$ make test
-```
-
-#### Run static analysis
-
-```bash
-$ make check
-```
-
-#### Build the documentation
-
-```bash
-$ make docs
-```
-
-#### Build the package
-
-```bash
-$ make build
-```
-
-#### Ontain help
-
-For help:
-
-```bash
-$ make help
-```
 
 ### Integration With Visual Studio Code
 
@@ -134,18 +76,18 @@ So here, few detail of my installation.
     ```
     ```poetry shell``` will activate project virtual environment.
 
-## Continuous Integration
+## Make Target list
 
-The CI server will report overall build status:
-
-```text
-$ make ci
-```
-
-## Release Tasks
-
-Release to PyPI:
-
-```text
-$ make publish
-```
+| Name         | Comment                                                                                  |
+|--------------|------------------------------------------------------------------------------------------|
+|              |                                                                                          |
+| debug-info   | Show poetry debug info                                                                   |
+| install      | Install project dependencies                                                             |
+| check        | Run linters and static analysis                                                          |
+| test         | Run unit tests                                                                           |
+| build        | Builds the source and wheels archives                                                    |
+| build-docs   | Builds  site documentation.                                                              |
+| publish      | Publishes the package, previously built with the build command, to the remote repository |
+| publish-docs | Build and publish site documentation.                                                    |
+| clean        | Delete all generated and temporary files                                                 |
+|              |                                                                                          |
