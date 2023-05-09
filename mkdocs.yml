@@ -1,0 +1,25 @@
+site_name: networkx query
+repo_url: https://github.com/geronimo-iia/networkx_query
+repo_name: geronimo-iia/networkx_query
+
+theme:
+  name: "material"
+  features:
+    - navigation.tracking
+    - navigation.path
+    - navigation.instant
+
+
+plugins:
+  - include-markdown
+  - mkdocstrings
+  - search
+
+nav:
+  - index.md
+  - reference.md
+  - changelog.md
+  - license.md
+  - contributing.md
+  - code_of_conduct.md
+
