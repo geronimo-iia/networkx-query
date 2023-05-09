@@ -53,6 +53,7 @@ Even if we use fabulous tool like pyenv, poetry, ... at the end, we just want to
 So here, few detail of my installation.
 
 - .bashrc
+
     ```bash
     # init pyenv with default python version
     if command -v pyenv 1>/dev/null 2>&1; then
@@ -70,11 +71,13 @@ So here, few detail of my installation.
 
 - How Launch Visual Studio Code within virtual environment created by poetry ?
     After do a ```make install```, you have to do:
+
     ```bash
     poetry shell
     code .
     ```
-    ```poetry shell``` will activate project virtual environment.
+    
+    `poetry shell` will activate project virtual environment.
 
 ## Make Target list
 
