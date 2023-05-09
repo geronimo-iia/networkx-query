@@ -1,17 +1,16 @@
-# Temporary Python files
+# Temporary files
 *.pyc
 *.egg-info
 __pycache__
 .ipynb_checkpoints
-
-# Temporary OS files
 Icon*
 
-# Temporary virtual environment files
 /.cache/
 /.venv/
-
-# Temporary server files
+/.mypy_cache/
+/.pytest_cache/
+/.ruff_cache/
+/site/
 .env
 *.pid
 
