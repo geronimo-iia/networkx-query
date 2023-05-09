@@ -13,7 +13,7 @@ def test_operator_definition():
     assert definition.name == "test"
     assert definition.arity == OperatoryArity.UNARY
     assert definition.alias == "alias_test"
-    assert definition.combinator == False
+    assert not definition.combinator
     assert not definition.profile
     assert isinstance(definition.function, Callable)
 
