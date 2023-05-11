@@ -1,6 +1,6 @@
 # Contributing
 
-This project is based on [Geronimo-iaa's Python Template](https://github.com/geronimo-iia/template-python).
+This project is based on [Geronimo-iaa's Python Template](https://github.com/geronimo-iia/python-module-template).
 This is a cookiecutter template for a typical Python library following modern packaging conventions. 
 It utilizes popular libraries to fully automate all development and deployment tasks.
 

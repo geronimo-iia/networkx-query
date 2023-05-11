@@ -81,9 +81,11 @@ testpaths = ["tests"]
 addopts = "--strict-markers --pdbcls=tests:Debugger -r sxX --cov=networkx_query --cov-report=html --cov-report=term-missing:skip-covered"
 
 [tool.ruff]
+cache-dir = ".cache/ruff"
 line-length = 120
 
 [tool.mypy]
+cache_dir = ".cache/mypy/"
 check_untyped_defs = true
 ignore_errors = false
 ignore_missing_imports = true
