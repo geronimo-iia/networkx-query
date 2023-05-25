@@ -34,9 +34,8 @@ mypy = "*"
 types-setuptools = "^67.7.0"
 
 # Unit Testing
-pytest = "^6"                                   # pytest: simple powerful testing with Python
-pytest-cov = "^2"                               # Pytest plugin for measuring coverage.
-pytest-mock = "^3"
+pytest = "^7"                                   # pytest: simple powerful testing with Python
+pytest-cov = "^4"                               # Pytest plugin for measuring coverage.
 xdoctest = "^0.15.0"                            # A rewrite of the builtin doctest module
 coverage = { version = "*", extras = ["toml"] }
 
@@ -46,6 +45,9 @@ mkdocstrings = { extras = ["python"], version = "^0.21.2" }
 mkdocs-material = "^9.1.9"
 mkdocs-include-markdown-plugin = "^4.0.4"
 
+# Security bumps from dependabot
+pymdown-extensions = "^10.0"
+requests = "^2.31.0"
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
