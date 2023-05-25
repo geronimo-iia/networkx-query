@@ -122,7 +122,7 @@ Actually, we have:
 - [search_direct_relationships](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_direct_relationships) 
 
 
-All this function are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query) which return an Evaluator.
+All this function are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.prepare_query) which return an Evaluator.
 
 Quickly, ```Evaluator``` are function with this signature: (context) -> bool, and ```Context``` is a dictionary like structure (with in and [] methods, and support __contains__ or  (__iter__ and __getitem__))
 With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.
