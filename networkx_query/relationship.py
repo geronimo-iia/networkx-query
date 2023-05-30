@@ -40,8 +40,12 @@ def search_direct_relationships(
 class PathCriteria(NamedTuple):
     """Defines path criteria.
 
+    Note:
+        With `target={}, egde=...` you could wrote a criteria based on egde constraint only.
+
     Args:
-        target (Dict): target node query constraint
+        target (Dict): target node query constraint.
+            `{}` means all nodes
         edge (Dict): optional edge query constraint
     """
 

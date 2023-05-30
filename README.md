@@ -59,7 +59,7 @@ for edge_id in search_edges(g, {"eq": [("action",), "produce"]}):
 >> (3, 2)
 ```
 
-### Searching relation ship
+### Searching direct relation ship
 
 With ```search_direct_relationships``` you can made a query which filter edges on their :
  - source node attributes
@@ -113,6 +113,80 @@ search_direct_relationships(
 >> [(10, 20), (11, 21)]
 ```
 
+
+
+### search_relationships
+
+With :
+
+```python
+    g = nx.DiGraph()
+    g.add_node(1, product="a")
+    g.add_node(2, product="b")
+    g.add_node(3, product="c")
+    g.add_node(4, product="d")
+
+    g.add_edge(1, 2)
+    g.add_edge(1, 3, weight=2)
+    g.add_edge(1, 4)
+
+    g.add_edge(2, 4)
+    g.add_edge(3, 4)
+```
+
+
+You could find all path with multiple constraints:
+
+```python
+    list(search_relationships(
+            g,
+            {"eq": [("product",), "a"]},
+            PathCriteria(target={"eq": [("product",), "b"]}),
+            PathCriteria(target={"eq": [("product",), "d"]}),
+        )) 
+    # output: [[1, 2, 4]]
+
+     list(search_relationships(g, {"eq": [("product",), "a"]}, PathCriteria(target={"eq": [("product",), "c"]})))
+     # outptu: [[1, 3]]
+```
+
+or something more complex:
+
+```python
+
+    g.add_node(5, product="d")
+    g.add_node(6, product="d")
+    g.add_node(7, product="a")
+    g.add_node(8, product="a")
+
+    g.add_edge(7, 5, weight=2)
+    g.add_edge(7, 6, weight=2)
+    g.add_edge(8, 5, weight=2)
+
+    list(
+        search_relationships(
+            g,
+            {"eq": [("product",), "a"]},  # node 1, 7, 8
+            PathCriteria(
+                target={"eq": [("product",), "d"]}, edge={"eq": [("weight",), 2]}
+            ),  # edge 1-3, 7-5, 7-6, 8-5  node 4, 5, 6 -> no 1, 3, 4
+        )
+    )
+    # output: [[7, 5], [7, 6], [8, 5]]
+
+    list(
+        search_relationships(
+            g,
+            {"eq": [("product",), "a"]},  # node 1, 7, 8
+            PathCriteria(target={}, edge={"eq": [("weight",), 2]}),  # edge 1-3, 7-5, 7-6, 8-5
+            PathCriteria(target={"eq": [("product",), "d"]}),  # node 4, 5, 6 -> no 1, 3, 4
+        )
+    )
+    # output: [[1, 3, 4]]
+```
+
+Note the usage of `PathCriteria(target={}, ..` to define a constraint based only on edge. `{}` act as a wildcard.
+
 ## API
 
 Actually, we have:
@@ -120,6 +194,7 @@ Actually, we have:
 - [search_edges](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_edges)
 - [search_nodes](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_nodes) 
 - [search_direct_relationships](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_direct_relationships) 
+- [search_relationships](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_relationships) 
 
 
 All this function are based on [prepare_query](https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.prepare_query) which return an Evaluator.
@@ -227,11 +302,9 @@ is equivalent to:
 }
 ```
 
-
 ## Wished Features
 
 - add projection expression (a return like statement)
 - add join relation ship 
-- add path condition between node
 
 

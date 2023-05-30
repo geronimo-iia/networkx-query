@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.3
+
+- implements `search_relationships`
+
 ## 1.0.2
 
 - technical feat:
