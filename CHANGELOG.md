@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.4 (next version)
+
+
 ## 1.0.3
 
 - implements `search_relationships`
