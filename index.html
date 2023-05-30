@@ -13,7 +13,7 @@
         <link rel="next" href="reference/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
@@ -276,8 +276,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#searching-relation-ship" class="md-nav__link">
-    Searching relation ship
+  <a href="#searching-direct-relation-ship" class="md-nav__link">
+    Searching direct relation ship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search_relationships" class="md-nav__link">
+    search_relationships
   </a>
   
 </li>
@@ -496,8 +503,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#searching-relation-ship" class="md-nav__link">
-    Searching relation ship
+  <a href="#searching-direct-relation-ship" class="md-nav__link">
+    Searching direct relation ship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search_relationships" class="md-nav__link">
+    search_relationships
   </a>
   
 </li>
@@ -575,7 +589,7 @@
 
 <!-- BEGIN INCLUDE ../README.md -->
 <h1 id="networkx-query">networkx-query</h1>
-<p><a href="https://travis-ci.com/geronimo-iia/networkx-query"><img alt="Unix Build Status" src="https://img.shields.io/travis/geronimo-iia/networkx-query/master.svg?label=unix" /></a><a href="https://coveralls.io/r/geronimo-iia/networkx-query"><img alt="Coverage Status" src="https://img.shields.io/coveralls/geronimo-iia/networkx-query/master.svg" /></a>
+<p><a href="https://img.shields.io/coveralls/geronimo-iia/networkx-query/master.svg">Coverage Status</a>](https://coveralls.io/r/geronimo-iia/networkx-query)
 <a href="https://www.codacy.com/app/geronimo-iia/networkx-query?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=geronimo-iia/networkx-query&amp;utm_campaign=Badge_Grade"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382" /></a><a href="https://scrutinizer-ci.com/g/geronimo-iia/networkx-query/?branch=master"><img alt="Scrutinizer Code Quality" src="https://img.shields.io/scrutinizer/g/geronimo-iia/networkx-query.svg" /></a>
 <a href="https://pypi.org/project/networkx-query"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/networkx-query.svg" /></a>
 <a href="https://pypi.org/project/networkx-query"><img alt="PyPI License" src="https://img.shields.io/pypi/l/networkx-query.svg" /></a></p>
@@ -614,7 +628,7 @@ for node_id in search_nodes(g, {&quot;==&quot;: [(&quot;product&quot;,), &quot;c
 
 &gt;&gt; (3, 2)
 </code></pre>
-<h3 id="searching-relation-ship">Searching relation ship</h3>
+<h3 id="searching-direct-relation-ship">Searching direct relation ship</h3>
 <p>With <code>search_direct_relationships</code> you can made a query which filter edges on their :
  - source node attributes
  - edge attributes
@@ -653,14 +667,75 @@ for i in range(10, 30):
 
 &gt;&gt; [(10, 20), (11, 21)]
 </code></pre>
+<h3 id="search_relationships">search_relationships</h3>
+<p>With :</p>
+<pre><code class="language-python">    g = nx.DiGraph()
+    g.add_node(1, product=&quot;a&quot;)
+    g.add_node(2, product=&quot;b&quot;)
+    g.add_node(3, product=&quot;c&quot;)
+    g.add_node(4, product=&quot;d&quot;)
+
+    g.add_edge(1, 2)
+    g.add_edge(1, 3, weight=2)
+    g.add_edge(1, 4)
+
+    g.add_edge(2, 4)
+    g.add_edge(3, 4)
+</code></pre>
+<p>You could find all path with multiple constraints:</p>
+<pre><code class="language-python">    list(search_relationships(
+            g,
+            {&quot;eq&quot;: [(&quot;product&quot;,), &quot;a&quot;]},
+            PathCriteria(target={&quot;eq&quot;: [(&quot;product&quot;,), &quot;b&quot;]}),
+            PathCriteria(target={&quot;eq&quot;: [(&quot;product&quot;,), &quot;d&quot;]}),
+        )) 
+    # output: [[1, 2, 4]]
+
+     list(search_relationships(g, {&quot;eq&quot;: [(&quot;product&quot;,), &quot;a&quot;]}, PathCriteria(target={&quot;eq&quot;: [(&quot;product&quot;,), &quot;c&quot;]})))
+     # outptu: [[1, 3]]
+</code></pre>
+<p>or something more complex:</p>
+<pre><code class="language-python">
+    g.add_node(5, product=&quot;d&quot;)
+    g.add_node(6, product=&quot;d&quot;)
+    g.add_node(7, product=&quot;a&quot;)
+    g.add_node(8, product=&quot;a&quot;)
+
+    g.add_edge(7, 5, weight=2)
+    g.add_edge(7, 6, weight=2)
+    g.add_edge(8, 5, weight=2)
+
+    list(
+        search_relationships(
+            g,
+            {&quot;eq&quot;: [(&quot;product&quot;,), &quot;a&quot;]},  # node 1, 7, 8
+            PathCriteria(
+                target={&quot;eq&quot;: [(&quot;product&quot;,), &quot;d&quot;]}, edge={&quot;eq&quot;: [(&quot;weight&quot;,), 2]}
+            ),  # edge 1-3, 7-5, 7-6, 8-5  node 4, 5, 6 -&gt; no 1, 3, 4
+        )
+    )
+    # output: [[7, 5], [7, 6], [8, 5]]
+
+    list(
+        search_relationships(
+            g,
+            {&quot;eq&quot;: [(&quot;product&quot;,), &quot;a&quot;]},  # node 1, 7, 8
+            PathCriteria(target={}, edge={&quot;eq&quot;: [(&quot;weight&quot;,), 2]}),  # edge 1-3, 7-5, 7-6, 8-5
+            PathCriteria(target={&quot;eq&quot;: [(&quot;product&quot;,), &quot;d&quot;]}),  # node 4, 5, 6 -&gt; no 1, 3, 4
+        )
+    )
+    # output: [[1, 3, 4]]
+</code></pre>
+<p>Note the usage of <code>PathCriteria(target={}, ..</code> to define a constraint based only on edge. <code>{}</code> act as a wildcard.</p>
 <h2 id="api">API</h2>
 <p>Actually, we have:</p>
 <ul>
-<li><a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_edges">search_edges</a></li>
-<li><a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_nodes">search_nodes</a> </li>
-<li><a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.search_direct_relationships">search_direct_relationships</a> </li>
+<li><a href="https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_edges">search_edges</a></li>
+<li><a href="https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_nodes">search_nodes</a> </li>
+<li><a href="https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_direct_relationships">search_direct_relationships</a> </li>
+<li><a href="https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.search_relationships">search_relationships</a> </li>
 </ul>
-<p>All this function are based on <a href="https://geronimo-iia.github.io/networkx-query/api.html#networkx_query.prepare_query">prepare_query</a> which return an Evaluator.</p>
+<p>All this function are based on <a href="https://geronimo-iia.github.io/networkx-query/reference/#networkx_query.prepare_query">prepare_query</a> which return an Evaluator.</p>
 <p>Quickly, <code>Evaluator</code> are function with this signature: (context) -&gt; bool, and <code>Context</code> is a dictionary like structure (with in and [] methods, and support <strong>contains</strong> or  (<strong>iter</strong> and <strong>getitem</strong>))
 With networkX, node and edge attributes are dictionary like, so implementation of this three methods are very simple.</p>
 <h2 id="query-language">Query language</h2>
@@ -829,7 +904,6 @@ A Path is a single string or a tuple of string which represente a path in a tree
 <ul>
 <li>add projection expression (a return like statement)</li>
 <li>add join relation ship </li>
-<li>add path condition between node</li>
 </ul>
 <!-- END INCLUDE -->
 
@@ -872,7 +946,7 @@ A Path is a single string or a tuple of string which represente a path in a tree
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tracking", "navigation.path", "navigation.instant"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.fac441b0.min.js"></script>
+      <script src="assets/javascripts/bundle.b4d07000.min.js"></script>
       
     
   </body>
