@@ -24,7 +24,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8,<3.12"
-networkx = "^3"
+networkx = "*"
 
 [tool.poetry.dev-dependencies]
 black = "22.3.0"             # The uncompromising code formatter.
