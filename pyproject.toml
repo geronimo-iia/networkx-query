@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "networkx_query"
-version = "1.0.4"
+version = "2.0.0"
 description = "NetworkX Query Tool"
 license = "MIT"
 authors = ["Jerome Guibert <jguibert@gmail.com>"]
@@ -24,7 +24,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8,<3.12"
-networkx = "^2.4"
+networkx = "*"
 
 [tool.poetry.dev-dependencies]
 black = "22.3.0"             # The uncompromising code formatter.
