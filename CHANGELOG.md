@@ -1,7 +1,8 @@
 # Change Log
 
-## 1.0.4 (next version)
+## 2.0.0 (next version)
 
+- add support for networkx 3.x
 
 ## 1.0.3
 
