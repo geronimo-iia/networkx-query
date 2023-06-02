@@ -3,6 +3,7 @@
 ## 2.0.0 (next version)
 
 - add support for networkx 3.x
+- add test pipeline for python 3.9, 3.10 and 3.11
 
 ## 1.0.3
 
