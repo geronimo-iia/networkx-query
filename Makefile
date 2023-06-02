@@ -88,7 +88,6 @@ $(DIST_FILES): $(MODULES) pyproject.toml
 publish: build ## Publishes the package, previously built with the build command, to the remote repository
 	$(MAKE) configure
 	poetry publish
-	$(MAKE) tag
 
 
 .PHONY: next-patch-version
