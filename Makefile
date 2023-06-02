@@ -121,6 +121,7 @@ build-docs:  ## Build and publish sit documentation.
 
 .PHONY: publish-docs
 publish-docs:  ## Build and publish sit documentation.
+	@git fetch origin  gh-pages
 	@poetry run mkdocs gh-deploy  --clean 
 
 
