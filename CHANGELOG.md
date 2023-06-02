@@ -1,8 +1,9 @@
 # Change Log
 
-## 2.0.0 (next version)
+## 2.0.0
 
-- add support for networkx 3.x
+- add support for networkx 3.x: 
+  By default, poetry will try to install the newest version of networkx (`networkx = "*"`).
 - add test pipeline for python 3.9, 3.10 and 3.11
 
 ## 1.0.3
