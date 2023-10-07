@@ -51,6 +51,7 @@ requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 urllib3 = "^2.0.6"
+certifi = "^2023.7.22"
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
