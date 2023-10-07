@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.1
+
+Security fix (dev tools)
+
+- Removal of e-Tugra root certificate 
+
 ## 2.0.0
 
 - add support for networkx 3.x: 
