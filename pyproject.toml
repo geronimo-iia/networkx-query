@@ -27,31 +27,31 @@ python = "^3.8,<3.12"
 networkx = "*"
 
 [tool.poetry.dev-dependencies]
-black = "22.3.0"             # The uncompromising code formatter.
-isort = "5.9.3"              #A Python utility / library to sort Python imports.
-ruff = "^0.0.264"
+black = "24.2.0"             # The uncompromising code formatter.
+isort = "5.13.2"              #A Python utility / library to sort Python imports.
+ruff = "^0.2.2"
 mypy = "*"
-types-setuptools = "^67.7.0"
+types-setuptools = "^69.1.0"
 
 # Unit Testing
-pytest = "^7"                                   # pytest: simple powerful testing with Python
+pytest = "^8"                                   # pytest: simple powerful testing with Python
 pytest-cov = "^4"                               # Pytest plugin for measuring coverage.
-xdoctest = "^0.15.0"                            # A rewrite of the builtin doctest module
+xdoctest = "^1.1.3"                            # A rewrite of the builtin doctest module
 coverage = { version = "*", extras = ["toml"] }
 
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
-mkdocstrings = { extras = ["python"], version = "^0.21.2" }
-mkdocs-material = "^9.1.9"
-mkdocs-include-markdown-plugin = "^4.0.4"
+mkdocstrings = { extras = ["python"], version = "^0.24.0" }
+mkdocs-material = "^9.5.10"
+mkdocs-include-markdown-plugin = "^6.0.4"
 
 # Security bumps from dependabot
-pymdown-extensions = "^10.0"
+pymdown-extensions = "^10.7"
 requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 urllib3 = "^2.0.6"
-certifi = "^2023.7.22"
+certifi = ">=2023.7.22,<2025.0.0"
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
