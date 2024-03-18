@@ -27,11 +27,11 @@ python = "^3.8,<3.12"
 networkx = "*"
 
 [tool.poetry.dev-dependencies]
-black = "24.2.0"             # The uncompromising code formatter.
+black = "24.3.0"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.3.2"
+ruff = "^0.3.3"
 mypy = "*"
-types-setuptools = "^69.1.0"
+types-setuptools = "^69.2.0"
 
 # Unit Testing
 pytest = "^8"                                   # pytest: simple powerful testing with Python
@@ -42,7 +42,7 @@ coverage = { version = "*", extras = ["toml"] }
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
 mkdocstrings = { extras = ["python"], version = "^0.24.1" }
-mkdocs-material = "^9.5.13"
+mkdocs-material = "^9.5.14"
 mkdocs-include-markdown-plugin = "^6.0.4"
 
 # Security bumps from dependabot
