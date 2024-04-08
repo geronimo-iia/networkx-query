@@ -41,8 +41,8 @@ coverage = { version = "*", extras = ["toml"] }
 
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
-mkdocstrings = { extras = ["python"], version = "^0.24.1" }
-mkdocs-material = "^9.5.16"
+mkdocstrings = { extras = ["python"], version = "^0.24.3" }
+mkdocs-material = "^9.5.17"
 mkdocs-include-markdown-plugin = "^6.0.5"
 
 # Security bumps from dependabot
