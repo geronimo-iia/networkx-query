@@ -47,7 +47,7 @@ mkdocs-include-markdown-plugin = "^6.0.6"
 
 # Security bumps from dependabot
 pymdown-extensions = "^10.8"
-requests = "^2.31.0"
+requests = "^2.32.0"
 
 [tool.poetry.group.dev.dependencies]
 urllib3 = "^2.0.6"
