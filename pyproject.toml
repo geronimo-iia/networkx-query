@@ -29,9 +29,9 @@ networkx = "*"
 [tool.poetry.dev-dependencies]
 black = "24.4.2"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.4.4"
+ruff = "^0.4.5"
 mypy = "*"
-types-setuptools = "^69.5.0"
+types-setuptools = "^70.0.0"
 
 # Unit Testing
 pytest = "^8"                                   # pytest: simple powerful testing with Python
@@ -47,7 +47,7 @@ mkdocs-include-markdown-plugin = "^6.0.6"
 
 # Security bumps from dependabot
 pymdown-extensions = "^10.8"
-requests = "^2.31.0"
+requests = "^2.32.2"
 
 [tool.poetry.group.dev.dependencies]
 urllib3 = "^2.0.6"
