@@ -27,23 +27,23 @@ python = "^3.8,<3.12"
 networkx = "*"
 
 [tool.poetry.dev-dependencies]
-black = "24.4.2"             # The uncompromising code formatter.
+black = "24.8.0"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = "^0.5.5"
+ruff = "^0.6.1"
 mypy = "*"
 types-setuptools = "^71.1.0"
 
 # Unit Testing
 pytest = "^8"                                   # pytest: simple powerful testing with Python
 pytest-cov = "^5"                               # Pytest plugin for measuring coverage.
-xdoctest = "^1.1.5"                            # A rewrite of the builtin doctest module
+xdoctest = "^1.1.6"                            # A rewrite of the builtin doctest module
 coverage = { version = "*", extras = ["toml"] }
 
 # Documentation
 mkdocs = { extras = ["markdown-include"], version = "^1.4.3" }
 mkdocstrings = { extras = ["python"], version = "^0.25.2" }
 mkdocs-material = "^9.5.18"
-mkdocs-include-markdown-plugin = "^6.2.1"
+mkdocs-include-markdown-plugin = "^6.2.2"
 
 # Security bumps from dependabot
 pymdown-extensions = "^10.9"
