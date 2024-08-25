@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.0.2
+
+
+- add support for python 3.12
+  
+- build System:
+
+  - update poetry declaration
+  - use poe plugin (simplify makefile)
+  - use pyright for analysis (remove mypi)
+
 ## 2.0.1
 
 Security fix (dev tools)
