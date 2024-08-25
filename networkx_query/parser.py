@@ -1,4 +1,5 @@
 """Main parser and compile function."""
+
 from collections import deque
 from typing import Dict, List, Optional
 
@@ -30,7 +31,7 @@ def parse(expra: Dict, stack: Optional[deque] = None) -> ItemAST:
     _stack = stack if stack else deque()
 
     _stack.append(expra)
-    for (op, v) in expra.items():
+    for op, v in expra.items():
         if op not in NETWORKX_OPERATORS_REGISTERY:
             raise ParserException(f'Unsupported "{op}" operator', _stack)
         operator = NETWORKX_OPERATORS_REGISTERY[op]

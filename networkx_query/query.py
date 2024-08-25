@@ -1,4 +1,5 @@
 """networkx-query public interace definition."""
+
 from typing import Any, Dict, Iterable, Tuple
 
 from networkx import Graph
