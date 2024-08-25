@@ -1,7 +1,8 @@
 """Utilities with networkx."""
+
 from typing import Any, Callable, Iterable, List, Tuple
 
-from networkx import Graph, all_simple_paths
+from networkx import DiGraph, Graph, all_simple_paths
 from networkx.utils import pairwise
 
 __all__ = [
@@ -51,11 +52,11 @@ def get_attributs(*names: str) -> Callable[[Tuple], List]:  # pragma: no cover
     return _map
 
 
-def search_root_nodes(graph: Graph) -> Iterable[Any]:  # pragma: no cover
+def search_root_nodes(graph: DiGraph) -> Iterable[Any]:  # pragma: no cover
     """Search nodes with no 'in' edges.
 
     Arguments:
-        graph (Graph): networkx graph instance
+        graph (DiGraph): networkx digraph instance
 
     Returns:
         (Iterable[Any]): results as an iterable of node identifier.
@@ -64,11 +65,11 @@ def search_root_nodes(graph: Graph) -> Iterable[Any]:  # pragma: no cover
     return map(get_first_item, filter(filter_by_degree(0), graph.in_degree()))
 
 
-def search_leaf_nodes(graph: Graph) -> Iterable[Any]:  # pragma: no cover
+def search_leaf_nodes(graph: DiGraph) -> Iterable[Any]:  # pragma: no cover
     """Search nodes with no 'out' edges.
 
     Arguments:
-        graph (Graph): networkx graph instance
+        graph (DiGraph): networkx digraph instance
 
     Returns:
         (Iterable[Any]): results as an iterable of node identifier.

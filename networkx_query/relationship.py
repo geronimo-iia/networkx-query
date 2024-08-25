@@ -70,7 +70,7 @@ def search_relationships(graph: Graph, source: Dict, *nodes: PathCriteria) -> It
 
     if not nodes:
         # cast single edge to path
-        for (a, b) in search_direct_relationships(graph=graph, source=source):
+        for a, b in search_direct_relationships(graph=graph, source=source):
             yield [a, b]
         return
 
@@ -97,13 +97,13 @@ def search_relationships(graph: Graph, source: Dict, *nodes: PathCriteria) -> It
 
     # recursive
     def visit(path, node, i):
-        for (a, b) in filter(lambda t: t[0] == node, relationships[i]):
+        for a, b in filter(lambda t: t[0] == node, relationships[i]):
             if i + 1 < node_count:
                 yield from visit(path=path + [a], node=b, i=i + 1)
             else:
                 yield path + [a, b]
 
-    for (a, b) in relationships[0]:
+    for a, b in relationships[0]:
         if node_count == 1:
             yield [a, b]
         else:
