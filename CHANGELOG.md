@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.0.2
+## 2.1.0
 
 
 - add support for python 3.12
