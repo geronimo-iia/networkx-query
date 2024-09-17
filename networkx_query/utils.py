@@ -62,7 +62,11 @@ def search_root_nodes(graph: DiGraph) -> Iterable[Any]:  # pragma: no cover
         (Iterable[Any]): results as an iterable of node identifier.
 
     """
-    return map(get_first_item, filter(filter_by_degree(0), graph.in_degree()))
+
+    return map(
+        get_first_item,
+        filter(filter_by_degree(0), graph.in_degree()),  # pyright: ignore [reportCallIssue, reportArgumentType]
+    )
 
 
 def search_leaf_nodes(graph: DiGraph) -> Iterable[Any]:  # pragma: no cover
@@ -75,7 +79,11 @@ def search_leaf_nodes(graph: DiGraph) -> Iterable[Any]:  # pragma: no cover
         (Iterable[Any]): results as an iterable of node identifier.
 
     """
-    return map(get_first_item, filter(filter_by_degree(0), graph.out_degree()))
+
+    return map(
+        get_first_item,
+        filter(filter_by_degree(0), graph.out_degree()),  # pyright: ignore [reportCallIssue, reportArgumentType]
+    )
 
 
 def search_simple_path(graph: Graph, source: Any, target: Any, cutoff=None):  # pragma: no cover
