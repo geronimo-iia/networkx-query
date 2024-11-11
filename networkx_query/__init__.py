@@ -1,7 +1,5 @@
 """networkx-query."""
 
-from pkg_resources import DistributionNotFound, get_distribution
-
 from .definition import Evaluator, ParserException
 from .parser import prepare_query
 from .query import search_edges, search_nodes
@@ -17,8 +15,3 @@ __all__ = [
     'search_relationships',
     'PathCriteria',
 ]
-
-try:
-    __version__ = get_distribution('networkx_query').version
-except DistributionNotFound:  # pragma: no cover
-    __version__ = '(local)'
