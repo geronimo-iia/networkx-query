@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.1
+
+- remove support for python 3.8
+
 ## 2.1.0
 
 
