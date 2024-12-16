@@ -37,7 +37,7 @@ pyright = "^1.1.354"
 
 # Unit Testing
 pytest = "^8"                                   # pytest: simple powerful testing with Python
-pytest-cov = "^5"                               # Pytest plugin for measuring coverage.
+pytest-cov = ">=5,<7"                               # Pytest plugin for measuring coverage.
 xdoctest = "^1.1.5"                            # A rewrite of the builtin doctest module
 coverage = { version = "*", extras = ["toml"] }
 
@@ -53,9 +53,9 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["markdown-include"], version = "^1.5.3" }
-mkdocstrings = { extras = ["python"], version = ">=0.25.2,<0.27.0" }
+mkdocstrings = { extras = ["python"], version = ">=0.25.2,<0.28.0" }
 mkdocs-material = "^9.5.18"
-mkdocs-include-markdown-plugin = "^6.2.1"
+mkdocs-include-markdown-plugin = ">=6.2.1,<8.0.0"
 
 
 [tool.black]
