@@ -17,7 +17,6 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -27,13 +26,13 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8,<4"
+python = "^3.9,<4"
 networkx = "*"
 
 [tool.poetry.group.dev.dependencies]
-black = "24.8.0"             # The uncompromising code formatter.
+black = "24.10.0"             # The uncompromising code formatter.
 isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = ">=0.5.5,<0.8.0"
+ruff = "^0.8.3"
 pyright = "^1.1.354"
 
 # Unit Testing
@@ -48,6 +47,7 @@ requests = "^2.32.3"
 urllib3 = "^2.0.6"
 certifi = ">=2023.7.22,<2025.0.0"
 
+
 [tool.poetry.group.docs]
 optional = true
 
@@ -61,7 +61,7 @@ mkdocs-include-markdown-plugin = "^6.2.1"
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
 line_length = 120
-target-version = ["py38"]
+target-version = ["py39"]
 skip-string-normalization = true
 
 [tool.isort]
@@ -110,7 +110,7 @@ defineConstant = { DEBUG = true }
 reportMissingImports = true
 reportMissingTypeStubs = false
 
-pythonVersion = "3.8"
+pythonVersion = "3.9"
 pythonPlatform = "Linux"
 
 [tool.poe.tasks]
