@@ -389,9 +389,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#poetry-installation-httpspoetryeustaceiodocsinstallation" class="md-nav__link">
+  <a href="#uv-installation-httpsdocsastralshuvgetting-startedinstallation" class="md-nav__link">
     <span class="md-ellipsis">
-      Poetry Installation: https://poetry.eustace.io/docs/#installation
+      UV Installation: https://docs.astral.sh/uv/getting-started/installation/
     </span>
   </a>
   
@@ -541,9 +541,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#poetry-installation-httpspoetryeustaceiodocsinstallation" class="md-nav__link">
+  <a href="#uv-installation-httpsdocsastralshuvgetting-startedinstallation" class="md-nav__link">
     <span class="md-ellipsis">
-      Poetry Installation: https://poetry.eustace.io/docs/#installation
+      UV Installation: https://docs.astral.sh/uv/getting-started/installation/
     </span>
   </a>
   
@@ -598,9 +598,9 @@ It utilizes popular libraries to fully automate all development and deployment t
 <h3 id="requirements">Requirements</h3>
 <p>You will need:</p>
 <ul>
-<li>Python 3.8"+</li>
+<li>Python 3.9</li>
 <li><a href="https://github.com/pyenv/pyenv#installation">Pyenv</a></li>
-<li><a href="https://python-poetry.org/">poetry</a></li>
+<li><a href="https://github.com/astral-sh/uv">uv</a> </li>
 <li>Make</li>
 </ul>
 <h3 id="make-installation">Make Installation</h3>
@@ -612,9 +612,10 @@ It utilizes popular libraries to fully automate all development and deployment t
 <p>Pyenv will manage all our python version.
 Follow <a href="https://github.com/pyenv/pyenv#installation">https://github.com/pyenv/pyenv#installation</a></p>
 <h3 id="python-installation">Python Installation</h3>
-<p><code>$ pyenv install 3.8</code></p>
-<h3 id="poetry-installation-httpspoetryeustaceiodocsinstallation">Poetry Installation: <a href="https://poetry.eustace.io/docs/#installation">https://poetry.eustace.io/docs/#installation</a></h3>
-<p>Poetry will manage our dependencies and create our virtual environment for us.</p>
+<p><code>$ pyenv install 3.9</code></p>
+<h3 id="uv-installation-httpsdocsastralshuvgetting-startedinstallation">UV Installation: <a href="https://docs.astral.sh/uv/getting-started/installation/">https://docs.astral.sh/uv/getting-started/installation/</a></h3>
+<p>UV will manage our dependencies and create our virtual environment for us.</p>
+<p>As we use <a href="https://poethepoet.natn.io/">poethepoet</a>, you should define an alias like <code>alias poe="uv run poe"</code>.</p>
 <h2 id="make-target-list">Make Target list</h2>
 <table>
 <thead>
@@ -629,16 +630,8 @@ Follow <a href="https://github.com/pyenv/pyenv#installation">https://github.com/
 <td>Install project dependencies</td>
 </tr>
 <tr>
-<td>make configure</td>
-<td>Configure poetry</td>
-</tr>
-<tr>
-<td>make tag</td>
-<td>Create and push a tag based on current project version. This will launch github release action.</td>
-</tr>
-<tr>
-<td>make next-patch-version</td>
-<td>Increment patch version of the project.</td>
+<td>make lock</td>
+<td>Lock project dependencies</td>
 </tr>
 <tr>
 <td></td>
@@ -656,35 +649,47 @@ Follow <a href="https://github.com/pyenv/pyenv#installation">https://github.com/
 </thead>
 <tbody>
 <tr>
-<td>poetry poe check</td>
-<td>Run linters and static analysis</td>
+<td>poe types</td>
+<td>Run the type checker</td>
 </tr>
 <tr>
-<td>poetry poe test</td>
+<td>poe lint</td>
+<td>Run linting tools on the code base</td>
+</tr>
+<tr>
+<td>poe style</td>
+<td>Validate black code style</td>
+</tr>
+<tr>
+<td>poe test</td>
 <td>Run unit tests</td>
 </tr>
 <tr>
-<td>poetry poe build</td>
-<td>Builds the source and wheels archives (and run check &amp; test target)</td>
+<td>poe check</td>
+<td>Run all checks on the code base</td>
 </tr>
 <tr>
-<td>poetry poe publish</td>
-<td>Publishes the package, previously built with the build command, to the remote repository</td>
+<td>poe build</td>
+<td>Builds module</td>
 </tr>
 <tr>
-<td>poetry poe docs</td>
+<td>poe publish</td>
+<td>Publishes the package</td>
+</tr>
+<tr>
+<td>poe docs</td>
 <td>Builds  site documentation.</td>
 </tr>
 <tr>
-<td>poetry poe docs-publish</td>
+<td>poe docs-publish</td>
 <td>Build and publish site documentation.</td>
 </tr>
 <tr>
-<td>poetry poe clean</td>
+<td>poe clean</td>
 <td>Delete all generated and temporary files</td>
 </tr>
 <tr>
-<td>poetry poe requirements</td>
+<td>poe requirements</td>
 <td>Generate requirements.txt</td>
 </tr>
 <tr>
@@ -693,34 +698,37 @@ Follow <a href="https://github.com/pyenv/pyenv#installation">https://github.com/
 </tr>
 </tbody>
 </table>
-<p>You could retrieve those commands with <code>poetry poe</code>. It will output something like this :</p>
-<pre><code>Poe the Poet - A task runner that works well with poetry.
-version 0.25.0
+<p>You could retrieve those commands with <code>poe</code>. It will output something like this :</p>
+<pre><code>Usage:
+  poe [global options] task [task arguments]
 
-Result: No task specified.
+Global options:
+  -h, --help            Show this help page and exit
+  --version             Print the version and exit
+  -v, --verbose         Increase command output (repeatable)
+  -q, --quiet           Decrease command output (repeatable)
+  -d, --dry-run         Print the task contents but don't actually run it
+  -C PATH, --directory PATH
+                        Specify where to find the pyproject.toml
+  -e EXECUTOR, --executor EXECUTOR
+                        Override the default task executor
+  --ansi                Force enable ANSI output
+  --no-ansi             Force disable ANSI output
 
-USAGE
-  poetry poe [-h] [-v | -q] [--root PATH] [--ansi | --no-ansi] task [task arguments]
+Configured tasks:
+  types                 Run the type checker
+  lint                  Run linting tools on the code base
+  style                 Validate black code style
+  test                  Run unit tests
+  check                 Run all checks on the code base
+  build                 Build module
+  publish               Publish module
+  docs                  Build site documentation
+  docs-publish          Publish site documentation
+  clean                 Remove all generated and temporary files
+  requirements          Generate requirements.txt
 
-GLOBAL OPTIONS
-  -h, --help     Show this help page and exit
-  --version      Print the version and exit
-  -v, --verbose  Increase command output (repeatable)
-  -q, --quiet    Decrease command output (repeatable)
-  -d, --dry-run  Print the task contents but don't actually run it
-  --root PATH    Specify where to find the pyproject.toml
-  --ansi         Force enable ANSI output
-  --no-ansi      Force disable ANSI output
 
-CONFIGURED TASKS
-  build          Build module
-  publish        Publish module
-  check          Run Linter
-  test           Run unit tests
-  docs           Build site documentation
-  docs-publish   Publish site documentation
-  clean          Remove all generated and temporary files
-  requirements   Generate requirements.txt
 </code></pre>
 
 
