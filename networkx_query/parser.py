@@ -48,7 +48,7 @@ def parse(expra: Dict, stack: Optional[deque] = None) -> ItemAST:
             result.append(_check_item_ast(ItemAST(op=operator, args=[v] if not isinstance(v, List) else v), _stack))
 
     _stack.pop()
-    return result[0] if len(result) == 1 else ItemAST(op=NETWORKX_OPERATORS_REGISTERY['and'], args=result)
+    return result[0] if len(result) == 1 else ItemAST(op=NETWORKX_OPERATORS_REGISTERY["and"], args=result)
 
 
 def explain(ast: ItemAST) -> Dict:

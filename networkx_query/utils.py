@@ -1,6 +1,7 @@
 """Utilities with networkx."""
 
-from typing import Any, Callable, Iterable, List, Tuple
+from collections.abc import Iterable
+from typing import Any, Callable, List, Tuple
 
 from networkx import DiGraph, Graph, all_simple_paths
 from networkx.utils import pairwise
@@ -11,9 +12,9 @@ __all__ = [
     "get_two_first_items",
     "filter_by_degree",
     "get_attributs",
-    'search_root_nodes',
-    'search_leaf_nodes',
-    'search_simple_path',
+    "search_root_nodes",
+    "search_leaf_nodes",
+    "search_simple_path",
 ]
 
 

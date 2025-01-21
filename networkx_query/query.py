@@ -1,13 +1,14 @@
 """networkx-query public interace definition."""
 
-from typing import Any, Dict, Iterable, Tuple
+from collections.abc import Iterable
+from typing import Any, Dict, Tuple
 
 from networkx import Graph
 
 from .parser import prepare_query
 from .utils import get_first_item, get_two_first_items
 
-__all__ = ['search_nodes', 'search_edges']
+__all__ = ["search_nodes", "search_edges"]
 
 
 def search_nodes(graph: Graph, query: Dict) -> Iterable[Any]:

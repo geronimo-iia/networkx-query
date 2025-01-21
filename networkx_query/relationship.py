@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 from itertools import chain
-from typing import Dict, Iterable, List, NamedTuple, Optional, Tuple
+from typing import Dict, List, NamedTuple, Optional, Tuple
 
 from networkx import Graph
 

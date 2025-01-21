@@ -30,6 +30,6 @@ def test_search_direct_relationships_free_tail():
 def test_search_direct_relationships():
     assert list(
         search_direct_relationships(
-            graph=g, source={"gt": ["data", 9]}, edge={"gt": ["data", 15]}, target={'lt': ["data", 22]}
+            graph=g, source={"gt": ["data", 9]}, edge={"gt": ["data", 15]}, target={"lt": ["data", 22]}
         )
     ) == [(10, 20), (11, 21)]

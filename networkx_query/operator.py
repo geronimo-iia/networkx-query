@@ -1,5 +1,6 @@
 # type: ignore
 """Define few operator."""
+
 from typing import Any, List, Tuple
 
 from .definition import Evaluator, OperatoryArity, Path, register_operator
@@ -24,7 +25,7 @@ def lookup_path(context: Any, sub_paths: Path) -> Tuple[bool, Any]:
         return (False, None)
 
     if not (hasattr(context, "__contains__") or (hasattr(context, "__iter__") and hasattr(context, "__getitem__"))):
-        raise RuntimeError('Context must be dictionnary like')
+        raise RuntimeError("Context must be dictionnary like")
 
     if isinstance(sub_paths, Tuple):
         if sub_paths:
@@ -110,19 +111,13 @@ def op_in(context: Any, path: Path, value: List[Any]) -> bool:
 @register_operator(name="and", alias="&&", arity=OperatoryArity.NARY, combinator=True, profile=[Any, Evaluator])
 def op_and(context: Any, *filters: Evaluator) -> bool:
     """Define And operator."""
-    for f in filters:
-        if not f(context):
-            return False
-    return True
+    return all(f(context) for f in filters)
 
 
 @register_operator(name="or", alias="||", arity=OperatoryArity.NARY, combinator=True, profile=[Any, Evaluator])
 def op_or(context: Any, *filters: Evaluator) -> bool:
     """Define Or operator."""
-    for f in filters:
-        if f(context):
-            return True
-    return False
+    return any(f(context) for f in filters)
 
 
 @register_operator(name="xor", arity=OperatoryArity.NARY, combinator=True, profile=[Any, Evaluator])

@@ -1,13 +1,11 @@
-[tool.poetry]
+[project]
 name = "networkx_query"
 version = "2.1.0"
 description = "NetworkX Query Tool"
-license = "MIT"
-authors = ["Jerome Guibert <jguibert@gmail.com>"]
+authors = [{ name = "Jerome Guibert", email = "jguibert@gmail.com" }]
 readme = "README.md"
-homepage = "https://pypi.org/project/networkx_query"
-documentation = "https://geronimo-iia.github.io/networkx-query/"
-repository = "https://github.com/geronimo-iia/networkx-query"
+license = {text = "The MIT License (MIT)"}
+#license = {file = "LICENSE.md"} # setuptool bug
 keywords = ["networkx", "graph", "query"]
 classifiers = [
     # update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
@@ -24,55 +22,44 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
+requires-python = ">=3.9,<4"
+dependencies = ["networkx"]
 
-[tool.poetry.dependencies]
-python = "^3.9,<4"
-networkx = "*"
+[project.urls]
+homepage = "https://pypi.org/project/networkx_query"
+documentation = "https://geronimo-iia.github.io/networkx-query/"
+repository = "https://github.com/geronimo-iia/networkx-query"
 
-[tool.poetry.group.dev.dependencies]
-black = "24.10.0"             # The uncompromising code formatter.
-isort = "5.13.2"              #A Python utility / library to sort Python imports.
-ruff = ">=0.8.3,<0.10.0"
-pyright = "^1.1.354"
+[dependency-groups]
+dev =  [
+    "ruff ~= 0.9",
+    "pyright ~= 1.1.354",
+    "pytest >= 8", # pytest: simple powerful testing with Python
+    "pytest-cov >= 5", # Pytest plugin for measuring coverage.
+    "pytest-mock >=3",
+    "xdoctest ~=1.2.0", # A rewrite of the builtin doctest module
+    "coverage[toml] >= 7.6.10",
+    "poethepoet >= 0.32.1",
+    "setuptools>=75",
+]
+docs = [
+    "mkdocs~= 1.6",
+    "mkdocs-include-markdown-plugin >= 7.1.2",
+    "mkdocstrings[python] ~= 0.27",
+    "mkdocs-material == 9.*",
+    "mkdocs-include-markdown-plugin ~= 7.1.2"
+]
 
-# Unit Testing
-pytest = "^8"                                   # pytest: simple powerful testing with Python
-pytest-cov = ">=5,<7"                               # Pytest plugin for measuring coverage.
-xdoctest = "^1.1.5"                            # A rewrite of the builtin doctest module
-coverage = { version = "*", extras = ["toml"] }
+[tool.setuptools]
+packages = ["networkx_query"]
+license-files = []
 
-# Security bumps from dependabot
-pymdown-extensions = "^10.9"
-requests = "^2.32.3"
-urllib3 = "^2.0.6"
-certifi = ">=2023.7.22,<2025.0.0"
+[tool.uv]
+package = true
 
+cache-dir = "./.cache"
+default-groups = ["dev", "docs"]
 
-[tool.poetry.group.docs]
-optional = true
-
-[tool.poetry.group.docs.dependencies]
-mkdocs = { extras = ["markdown-include"], version = "^1.5.3" }
-mkdocstrings = { extras = ["python"], version = ">=0.25.2,<0.28.0" }
-mkdocs-material = "^9.5.18"
-mkdocs-include-markdown-plugin = ">=6.2.1,<8.0.0"
-
-
-[tool.black]
-# see https://black.readthedocs.io/en/stable/
-line_length = 120
-target-version = ["py39"]
-skip-string-normalization = true
-
-[tool.isort]
-# see https://timothycrosley.github.io/isort/
-line_length = 120
-combine_as_imports = true
-multi_line_output = 3
-include_trailing_comma = true
-use_parentheses = true
-force_grid_wrap = 0
-ensure_newline_before_comments = true
 
 [tool.coverage.paths]
 source = ["networkx_query"]
@@ -96,6 +83,35 @@ cache_dir = ".cache"
 [tool.ruff]
 cache-dir = ".cache/ruff"
 line-length = 120
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    # "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
 
 [tool.pyright]
 include = ["networkx_query"]
@@ -113,55 +129,76 @@ reportMissingTypeStubs = false
 pythonVersion = "3.9"
 pythonPlatform = "Linux"
 
-[tool.poe.tasks]
-_isort = "poetry run isort networkx_query tests"
-_black = "poetry run black networkx_query tests"
-_ruff = "poetry run ruff check networkx_query"
-pyright = "poetry run pyright"
-_build = "poetry build"
-_publish = "poetry publish"
-build.help = "Build module"
-build.sequence = ["check", "test", "_build"]
-publish.help = "Publish module"
-publish.sequence = ["build", "_publish"]
-check.help = "Run Linter and type checker"
-check.sequence = ["_isort", "_black", "_ruff", "pyright"]
 
+[tool.poe.tasks]
+_build = "uv build"
+_publish = "uv publish"
+
+
+[tool.poe.tasks.types]
+help = "Run the type checker"
+cmd  = "uv run pyright"
+
+[tool.poe.tasks.lint]
+help = "Run linting tools on the code base"
+cmd  = "uv run ruff check --fix ."
+
+[tool.poe.tasks.style]
+help = "Validate black code style"
+shell = """
+uv run ruff check --select I --fix
+uv run ruff format .
+"""
 
 [tool.poe.tasks.test]
 help = "Run unit tests"
 shell = """
-if test -e .cache/v/cache/lastfailed; then poetry run pytest tests --last-failed --exitfirst; fi &
+if test -e .cache/v/cache/lastfailed; then uv run pytest tests --last-failed --exitfirst; fi &
 rm -rf .cache/v/cache/lastfailed &
-poetry run pytest
+uv run pytest
 """
+
+[tool.poe.tasks.check]
+help     = "Run all checks on the code base"
+sequence = [ "style", "types", "lint", "test"]
+
+
+[tool.poe.tasks.build]
+help  = "Build module"
+sequence = ["check", "_build"]
+
+[tool.poe.tasks.publish]
+help  = "Publish module"
+sequence = ["build", "_publish"]
 
 [tool.poe.tasks.docs]
 help = "Build site documentation"
-shell  = """
+shell = """
 git fetch origin gh-pages &
-poetry run mkdocs build --clean
+uv run mkdocs build --clean
 """
 
 [tool.poe.tasks.docs-publish]
 help = "Publish site documentation"
-cmd  = """
-poetry run mkdocs gh-deploy  --clean 
+cmd = """
+uv run mkdocs gh-deploy  --clean 
 """
 
 [tool.poe.tasks.clean]
 help = "Remove all generated and temporary files"
 shell  = """
+uv cache clean
 rm -rf *.spec dist build .eggs *.egg-info .install .cache .coverage htmlcov .mypy_cache .pytest_cache site .ruff_cache &
 find networkx_query tests -type d -name '__pycache__' -exec rm -rf {} +
 """
 
 [tool.poe.tasks.requirements]
 help = "Generate requirements.txt"
-cmd = "poetry export --without-hashes -f requirements.txt "
+cmd = "uv pip compile pyproject.toml -o requirements.txt "
 capture_stdout = "requirements.txt"
 
-
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+
