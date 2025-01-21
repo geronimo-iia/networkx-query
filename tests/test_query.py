@@ -12,8 +12,8 @@ g.add_edge(3, 2, action="produce")
 
 def test_prepare_query():
     predicate = prepare_query({"eq": [("product",), "chocolate"]})
-    assert predicate({'product': 'chocolate'})
-    assert not predicate({'product': 'milk'})
+    assert predicate({"product": "chocolate"})
+    assert not predicate({"product": "milk"})
 
 
 def test_search_nodes_implementation():

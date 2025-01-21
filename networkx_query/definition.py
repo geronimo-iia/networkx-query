@@ -4,7 +4,7 @@ from enum import Enum, unique
 from typing import Any, Callable, List, NamedTuple, Optional, Tuple, Type, Union
 
 __all__ = [
-    'Path',
+    "Path",
     "Evaluator",
     "operator_factory",
     "OperatoryArity",

@@ -69,7 +69,9 @@ def test_search_relationships_one_node():
 
     result = list(
         search_relationships(
-            g, {"eq": [("product",), "a"]}, PathCriteria(target={}, edge={"eq": [("weight",), 2]})  # node 1
+            g,
+            {"eq": [("product",), "a"]},
+            PathCriteria(target={}, edge={"eq": [("weight",), 2]}),  # node 1
         )
     )  # 1-3
     assert len(result) == 1

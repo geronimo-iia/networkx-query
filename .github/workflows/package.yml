@@ -5,10 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-env:
-  POETRY_VIRTUALENVS_CREATE: false
-
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,17 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+    - name: Install uv and set the python version
+      uses: astral-sh/setup-uv@v5
       with:
+        version: "0.5.18"
         python-version: ${{ matrix.python-version }}
-    - name: Install and configure Poetry
-      uses: snok/install-poetry@v1
     - name: Install dependencies
       run: make install 
     - name: Check Python package
-      run: poetry poe check
-    - name: Test Python package
-      run: poetry poe test
-
-      
+      run: uv run poe check
