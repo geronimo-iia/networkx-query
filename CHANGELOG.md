@@ -1,5 +1,12 @@
 # Change Log
 
+
+## 2.1.2
+
+- use uv tool as dependencies manager
+- update github workflow
+- fix few code style issue
+
 ## 2.1.1
 
 - remove support for python 3.8
