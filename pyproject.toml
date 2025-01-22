@@ -1,6 +1,6 @@
 [project]
 name = "networkx_query"
-version = "2.1.2"
+version = "2.1.3"
 description = "NetworkX Query Tool"
 authors = [{ name = "Jerome Guibert", email = "jguibert@gmail.com" }]
 readme = "README.md"
@@ -51,8 +51,11 @@ docs = [
 ]
 
 [tool.setuptools]
-packages = ["networkx_query"]
 license-files = []
+
+[tool.setuptools.packages.find]
+include = ["networkx_query*"]
+namespaces = false
 
 [tool.uv]
 package = true

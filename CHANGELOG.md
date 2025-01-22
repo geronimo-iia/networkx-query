@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.1.3
+
+- fix miss configuration with setuptool
 
 ## 2.1.2
 
